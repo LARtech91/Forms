@@ -6,20 +6,21 @@
     <title>Avaliação Estética Premium | Thais Ribeiro</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #000000;
-            --secondary-color: #d4af37;
-            --accent-color: #b8860b;
-            --light-gold: #f5efd9;
-            --soft-white: #f8f9fa;
-            --cream-bg: #f9f5eb;
-            --cream-light: #fdfbf5;
-            --cream-dark: #f4eed2;
-            --text-color: #31261d;
-            --border-radius: 10px;
-            --box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            --primary-color: #F7D7D7;
+            --primary-dark: #EEC4C4;
+            --primary-light: #FAEAEA;
+            --secondary-color: #E8E8E8;
+            --text-color: #4A4A4A;
+            --text-dark: #333333;
+            --text-light: #707070;
+            --white: #FFFFFF;
+            --beige: #F5EBDD;
+            --gold: #D4AF37;
+            --border-radius: 12px;
+            --box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
             --transition: all 0.3s ease;
         }
 
@@ -30,11 +31,11 @@
         }
 
         body {
-            background-color: #f9f5eb;
+            background-color: var(--white);
             color: var(--text-color);
             line-height: 1.8;
-            font-family: 'Montserrat', sans-serif;
-            background-image: linear-gradient(to bottom right, rgba(212, 175, 55, 0.05), rgba(0, 0, 0, 0.02));
+            font-family: 'Open Sans', sans-serif;
+            background-image: linear-gradient(135deg, var(--primary-light) 0%, var(--white) 100%);
             background-attachment: fixed;
         }
 
@@ -46,78 +47,176 @@
         }
 
         .form-wrapper {
-            background: white;
+            background: var(--white);
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
             overflow: hidden;
+            border: 1px solid rgba(238, 196, 196, 0.3);
         }
 
         .header {
             text-align: center;
-            padding: 40px 30px 30px;
+            padding: 40px 30px 20px;
             position: relative;
-            background: linear-gradient(to bottom, #f4eed2, white);
+            background: linear-gradient(to bottom, var(--primary-light), var(--white));
         }
 
-        .header::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60%;
-            height: 1px;
-            background: linear-gradient(to right, transparent, var(--secondary-color), transparent);
+        .logo-container {
+            margin-bottom: 30px;
+            position: relative;
         }
 
         .logo {
-            width: 240px;
-            margin: 0 auto 25px;
+            width: 180px;
+            margin: 0 auto;
             position: relative;
-            z-index: 1;
             transition: var(--transition);
-            background-color: white;
-            padding: 20px;
-            border-radius: 50%;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            border: 2px solid var(--secondary-color);
-        }
-
-        .logo img {
-            width: 100%;
-            height: auto;
             display: block;
-            transition: var(--transition);
         }
 
-        .logo:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.25);
+        .logo-decoration {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(245, 235, 221, 0.5) 0%, rgba(255, 255, 255, 0) 70%);
+            z-index: -1;
         }
 
         .header h1 {
             font-family: 'Playfair Display', serif;
-            color: var(--primary-color);
+            color: var(--text-dark);
             margin-bottom: 15px;
             font-weight: 600;
-            font-size: 2rem;
+            font-size: 2.2rem;
             letter-spacing: 1px;
         }
 
         .header p {
-            color: var(--accent-color);
-            font-size: 0.95rem;
+            color: var(--text-light);
+            font-size: 1rem;
             max-width: 80%;
-            margin: 0 auto;
-            font-weight: 400;
+            margin: 0 auto 30px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 300;
+        }
+
+        /* Progress Bar Styles */
+        .progress-container {
+            margin: 0 auto 30px;
+            max-width: 80%;
+        }
+
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            color: var(--text-light);
+            font-weight: 600;
+            font-size: 14px;
+            font-family: 'Poppins', sans-serif;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .step.active .step-circle {
+            background-color: var(--primary-color);
+            color: var(--text-dark);
+            border-color: var(--primary-dark);
+        }
+
+        .step.completed .step-circle {
+            background-color: var(--primary-dark);
+            color: var(--white);
+        }
+
+        .step-name {
+            font-size: 12px;
+            color: var(--text-light);
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .step.active .step-name {
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: var(--secondary-color);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, var(--primary-dark), var(--primary-color));
+            transition: width 0.5s ease;
+            border-radius: 10px;
+            width: 0%;
         }
 
         .form-body {
             padding: 40px;
         }
 
+        /* Section styling */
+        .form-section {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            margin-bottom: 40px;
+            transition: var(--transition);
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-header {
+            background: linear-gradient(to right, var(--primary-light), var(--white));
+            padding: 20px 30px;
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+            border-bottom: 1px solid var(--primary-color);
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            color: var(--text-dark);
+            font-size: 1.4rem;
+            margin: 0;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .section-content {
+            padding: 30px;
+        }
+
         .form-group {
-            margin-bottom: 28px;
+            margin-bottom: 25px;
             position: relative;
         }
 
@@ -133,75 +232,140 @@
             min-width: 250px;
         }
 
-        label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: 500;
-            color: var(--primary-color);
-            font-size: 0.9rem;
-            letter-spacing: 0.3px;
+        /* Float Label Input Styles */
+        .float-label {
+            position: relative;
         }
 
-        input, select, textarea {
+        .float-label input,
+        .float-label textarea,
+        .float-label select {
             width: 100%;
-            padding: 14px 16px;
-            border: 1px solid #e5e5e5;
+            padding: 16px;
+            border: 1px solid var(--secondary-color);
             border-radius: var(--border-radius);
-            font-size: 0.95rem;
+            font-size: 16px;
             transition: var(--transition);
-            font-family: 'Montserrat', sans-serif;
-            color: var(--text-color);
-            background-color: white;
+            font-family: 'Open Sans', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--white);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+            padding-top: 24px;
+            padding-bottom: 8px;
+            height: auto;
         }
 
-        input:focus, select:focus, textarea:focus {
-            border-color: var(--secondary-color);
+        .float-label input:focus,
+        .float-label textarea:focus,
+        .float-label select:focus {
+            border-color: var(--primary-dark);
             outline: none;
-            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
-            background-color: white;
+            box-shadow: 0 0 0 3px rgba(238, 196, 196, 0.2);
+        }
+
+        .float-label input::placeholder,
+        .float-label textarea::placeholder,
+        .float-label select::placeholder {
+            color: transparent;
+        }
+
+        .float-label label {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            transition: all 0.25s ease;
+            pointer-events: none;
+            font-size: 16px;
+            color: var(--text-light);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .float-label input:focus ~ label,
+        .float-label input:not(:placeholder-shown) ~ label,
+        .float-label textarea:focus ~ label,
+        .float-label textarea:not(:placeholder-shown) ~ label,
+        .float-label select:focus ~ label,
+        .float-label select:not(:placeholder-shown) ~ label {
+            top: 8px;
+            font-size: 12px;
+            color: var(--primary-dark);
+            font-weight: 500;
         }
 
         .readonly-field {
-            background-color: var(--light-gold);
-            border-color: var(--secondary-color);
+            background-color: var(--primary-light) !important;
             cursor: not-allowed;
-            font-weight: 500;
         }
 
+        /* Checkbox and Radio Styles */
         .checkbox-group {
             margin-top: 15px;
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 12px;
+            gap: 15px;
         }
 
         .checkbox-container {
+            position: relative;
+            padding-left: 35px;
+            cursor: pointer;
+            font-size: 16px;
+            user-select: none;
+            color: var(--text-color);
             display: flex;
             align-items: center;
-            padding: 12px 15px;
-            border-radius: var(--border-radius);
-            background-color: white;
+            min-height: 28px;
             transition: var(--transition);
-            border: 1px solid #e9e9e9;
         }
 
-        .checkbox-container:hover {
-            background-color: var(--light-gold);
-            border-color: var(--secondary-color);
-            transform: translateY(-2px);
+        .checkbox-container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
         }
 
-        .checkbox-container input[type="checkbox"] {
-            width: auto;
-            margin-right: 12px;
-            accent-color: var(--secondary-color);
-            height: 18px;
-            width: 18px;
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 22px;
+            width: 22px;
+            background-color: var(--white);
+            border: 1px solid var(--secondary-color);
+            border-radius: 4px;
+            transition: var(--transition);
         }
 
-        .checkbox-container label {
-            margin-bottom: 0;
-            font-size: 0.9rem;
+        .checkbox-container:hover input ~ .checkmark {
+            background-color: var(--primary-light);
+            border-color: var(--primary-dark);
+        }
+
+        .checkbox-container input:checked ~ .checkmark {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+        }
+
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        .checkbox-container input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+        .checkbox-container .checkmark:after {
+            left: 7px;
+            top: 3px;
+            width: 6px;
+            height: 11px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
         }
 
         .radio-group {
@@ -212,56 +376,164 @@
         }
 
         .radio-container {
+            position: relative;
+            padding-left: 35px;
+            cursor: pointer;
+            font-size: 16px;
+            user-select: none;
+            color: var(--text-color);
             display: flex;
             align-items: center;
-            padding: 10px 16px;
-            background-color: white;
-            border: 1px solid #e9e9e9;
-            border-radius: 30px;
+            min-height: 28px;
             transition: var(--transition);
         }
 
-        .radio-container:hover {
-            background-color: var(--light-gold);
-            border-color: var(--secondary-color);
-        }
-
-        .radio-container input[type="radio"] {
-            width: auto;
-            margin-right: 8px;
-            accent-color: var(--secondary-color);
-            height: 16px;
-            width: 16px;
-        }
-
-        .radio-container label {
-            margin-bottom: 0;
-            font-size: 0.9rem;
-        }
-
-        textarea {
-            min-height: 140px;
-            resize: vertical;
-            line-height: 1.6;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 16px 32px;
-            background-color: var(--primary-color);
-            color: var(--secondary-color);
-            border: 2px solid var(--secondary-color);
-            border-radius: var(--border-radius);
+        .radio-container input {
+            position: absolute;
+            opacity: 0;
             cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
+            height: 0;
+            width: 0;
+        }
+
+        .radio-checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 22px;
+            width: 22px;
+            background-color: var(--white);
+            border: 1px solid var(--secondary-color);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .radio-container:hover input ~ .radio-checkmark {
+            background-color: var(--primary-light);
+            border-color: var(--primary-dark);
+        }
+
+        .radio-container input:checked ~ .radio-checkmark {
+            background-color: var(--white);
+            border-color: var(--primary-dark);
+            border-width: 2px;
+        }
+
+        .radio-checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        .radio-container input:checked ~ .radio-checkmark:after {
+            display: block;
+        }
+
+        .radio-container .radio-checkmark:after {
+            top: 5px;
+            left: 5px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--primary-dark);
+        }
+
+        /* File Upload Styles */
+        .file-upload {
+            border: 2px dashed var(--secondary-color);
+            border-radius: var(--border-radius);
+            padding: 30px;
             text-align: center;
             transition: var(--transition);
-            letter-spacing: 1.5px;
+            position: relative;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .file-upload:hover {
+            border-color: var(--primary-dark);
+            background-color: var(--primary-light);
+        }
+
+        .file-upload-icon {
+            font-size: 40px;
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+        }
+
+        .file-upload-text {
+            color: var(--text-light);
+            margin-bottom: 10px;
+        }
+
+        .file-upload-input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .file-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .file-preview-item {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .file-preview-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .file-preview-remove {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 20px;
+            height: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 12px;
+            color: #f44336;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            padding: 14px 28px;
+            background-color: var(--primary-color);
+            color: var(--text-dark);
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            text-align: center;
+            transition: var(--transition);
+            letter-spacing: 0.5px;
             text-transform: uppercase;
+            font-family: 'Poppins', sans-serif;
             position: relative;
             overflow: hidden;
             z-index: 1;
+            box-shadow: 0 4px 10px rgba(238, 196, 196, 0.3);
         }
 
         .btn::before {
@@ -271,15 +543,16 @@
             left: 0;
             width: 0;
             height: 100%;
-            background-color: var(--secondary-color);
+            background-color: var(--primary-dark);
             transition: width 0.3s ease;
             z-index: -1;
+            border-radius: var(--border-radius);
         }
 
         .btn:hover {
-            color: var(--primary-color);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(238, 196, 196, 0.4);
+            color: var(--text-dark);
         }
 
         .btn:hover::before {
@@ -289,142 +562,124 @@
         .btn-block {
             display: block;
             width: 100%;
-            max-width: 400px;
+            max-width: 320px;
             margin: 0 auto;
         }
 
-        .text-center {
-            text-align: center;
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--text-dark);
         }
 
-        .divider {
-            margin: 40px 0;
-            border: none;
-            height: 1px;
-            background: linear-gradient(to right, transparent, var(--secondary-color), transparent);
+        .btn-outline::before {
+            background-color: var(--primary-light);
         }
 
-        .section-title {
-            margin: 35px 0 25px;
-            color: var(--primary-color);
-            font-size: 1.3rem;
-            font-family: 'Playfair Display', serif;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
-            position: relative;
-            padding-bottom: 12px;
-            text-align: center;
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            justify-content: center;
         }
 
-        .section-title::after {
-            content: '';
+        /* Loading Spinner */
+        .spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--white);
+            animation: spin 0.8s ease-in-out infinite;
             position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 2px;
-            background-color: var(--secondary-color);
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        @keyframes spin {
+            to { transform: translateY(-50%) rotate(360deg); }
+        }
+        
+        .btn.loading .spinner {
+            display: inline-block;
+        }
+        
+        .btn.loading {
+            padding-right: 50px;
         }
 
-        .card {
-            border: 1px solid rgba(212, 175, 55, 0.3);
+        /* Helper Text */
+        .helper-text {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-top: 5px;
+            font-style: italic;
+            display: none;
+        }
+
+        .float-label input:focus ~ .helper-text,
+        .float-label textarea:focus ~ .helper-text {
+            display: block;
+        }
+
+        /* Error Messages */
+        .error-message {
+            color: #f44336;
+            font-size: 12px;
+            margin-top: 5px;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Success Message */
+        .success-message {
+            background-color: rgba(76, 175, 80, 0.1);
+            border: 1px solid #4CAF50;
             border-radius: var(--border-radius);
             padding: 30px;
-            margin-bottom: 35px;
-            background-color: var(--cream-light);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.04);
+            text-align: center;
+            margin: 30px 0;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .success-message h3 {
+            color: #4CAF50;
+            margin-bottom: 15px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Footer */
+        .form-footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--secondary-color);
+            background-color: var(--white);
+        }
+
+        .form-footer a {
+            color: var(--primary-dark);
+            text-decoration: none;
             transition: var(--transition);
         }
 
-        .card:hover {
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-            transform: translateY(-3px);
-            border-color: var(--secondary-color);
-        }
-
-        .card-header {
-            font-weight: 600;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-            color: var(--primary-color);
-            font-family: 'Playfair Display', serif;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-align: center;
-            font-size: 1.1rem;
-        }
-
-        /* Floating label animation */
-        .float-label {
-            position: relative;
-        }
-
-        .float-label input,
-        .float-label textarea {
-            padding-top: 20px;
-            padding-bottom: 8px;
-        }
-
-        .float-label label {
-            position: absolute;
-            top: 16px;
-            left: 16px;
-            transition: all 0.2s ease;
-            pointer-events: none;
-            font-size: 0.95rem;
-            color: #777;
-        }
-
-        .float-label input:focus ~ label,
-        .float-label input:not(:placeholder-shown) ~ label,
-        .float-label textarea:focus ~ label,
-        .float-label textarea:not(:placeholder-shown) ~ label {
-            top: 8px;
-            font-size: 0.7rem;
-            color: var(--secondary-color);
-        }
-
-        /* Custom placeholder styling */
-        .float-label input::placeholder,
-        .float-label textarea::placeholder {
-            color: transparent;
+        .form-footer a:hover {
+            color: var(--text-dark);
+            text-decoration: underline;
         }
 
         /* Required field indicator */
         .required-field::after {
             content: '*';
-            color: #d4af37;
+            color: var(--primary-dark);
             margin-left: 4px;
-        }
-
-        /* Form section styling */
-        .form-section {
-            position: relative;
-            margin-bottom: 40px;
-            padding: 30px;
-            background-color: var(--cream-light);
-            border-radius: var(--border-radius);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
-            border: 1px solid rgba(212, 175, 55, 0.15);
-            transition: var(--transition);
-        }
-        
-        .form-section:hover {
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
-            border-color: rgba(212, 175, 55, 0.3);
-        }
-
-        .form-section::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 1px;
-            background: linear-gradient(to right, transparent, rgba(212, 175, 55, 0.2), transparent);
         }
 
         /* Responsive adjustments */
@@ -435,7 +690,7 @@
             }
             
             .form-body {
-                padding: 30px 20px;
+                padding: 20px;
             }
             
             .header h1 {
@@ -455,160 +710,39 @@
                 font-size: 1.2rem;
             }
             
-            .card {
+            .section-content {
                 padding: 20px;
             }
-        }
 
-        /* Focus styling improvements */
-        input:focus, 
-        textarea:focus,
-        select:focus {
-            border-color: var(--secondary-color);
-            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
-        }
+            .progress-steps {
+                display: none;
+            }
 
-        /* Button pulse effect */
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4);
+            .btn-group {
+                flex-direction: column;
+                gap: 10px;
             }
-            70% {
-                box-shadow: 0 0 0 10px rgba(212, 175, 55, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(212, 175, 55, 0);
+
+            .btn {
+                width: 100%;
+                max-width: 100%;
             }
         }
 
-        .btn:focus {
-            animation: pulse 1.5s infinite;
-        }
-
-        /* Footer styling */
-        .form-footer {
-            text-align: center;
-            padding: 20px;
-            color: #777;
-            font-size: 0.85rem;
-        }
-
-        .form-footer a {
-            color: var(--accent-color);
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .form-footer a:hover {
-            color: var(--secondary-color);
-            text-decoration: underline;
-        }
-        
-        /* Estilo para mensagens de erro */
-        .error-message {
-            color: #dc3545;
-            font-size: 0.8rem;
-            margin-top: 5px;
-            animation: fadeIn 0.3s ease;
-        }
-        
-        /* Estilo para mensagem de sucesso */
-        .success-message {
-            animation: fadeIn 0.5s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* Estilizando o calendário nativo */
-        input[type="date"] {
-            position: relative;
-            appearance: none;
-            -webkit-appearance: none;
-        }
-        
-        input[type="date"]::-webkit-calendar-picker-indicator {
-            background: transparent;
-            bottom: 0;
-            color: transparent;
-            cursor: pointer;
-            height: 100%;
-            left: 0;
-            position: absolute;
-            right: 0;
-            top: 0;
-            width: 100%;
-        }
-        
-        input[type="date"]::after {
-            content: "📅";
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--accent-color);
-            pointer-events: none;
-        }
-        
-        /* Efeito de destaque nos checkboxes ao serem selecionados */
-        .checkbox-container input[type="checkbox"]:checked + label {
-            color: var(--secondary-color);
-            font-weight: 600;
-        }
-        
-        .checkbox-container input[type="checkbox"]:checked {
-            transform: scale(1.2);
-        }
-        
-        /* Progress bar para formulário multi-etapas */
-        .progress-container {
-            margin: 0 auto 30px;
-            max-width: 80%;
-        }
-        
-        .progress-bar {
-            height: 6px;
-            background: #e9ecef;
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(to right, var(--secondary-color), var(--accent-color));
-            transition: width 0.5s ease;
-            border-radius: 10px;
-            width: 0%;
-        }
-        
-        /* Loading spinner for form submission */
-        .spinner {
+        /* Hide sections that aren't active */
+        .form-section:not(.active) {
             display: none;
-            width: 24px;
-            height: 24px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: var(--secondary-color);
-            animation: spin 1s ease-in-out infinite;
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
         }
-        
-        @keyframes spin {
-            to { transform: translateY(-50%) rotate(360deg); }
-        }
-        
-        .btn.loading .spinner {
+
+        /* Icons */
+        .icon {
             display: inline-block;
-        }
-        
-        .btn.loading {
-            padding-right: 50px;
+            width: 1em;
+            height: 1em;
+            stroke-width: 0;
+            stroke: currentColor;
+            fill: currentColor;
+            vertical-align: middle;
         }
     </style>
 </head>
@@ -616,176 +750,335 @@
     <div class="container">
         <div class="form-wrapper">
             <div class="header">
-                <div class="logo">
-                    <img src="https://fbnqqxlvcilobufelbvs.supabase.co/storage/v1/object/public/documentos//logo_thaisribeiro.png" alt="Logo Thais Ribeiro">
+                <div class="logo-container">
+                    <img src="https://fbnqqxlvcilobufelbvs.supabase.co/storage/v1/object/public/documentos//logo_thaisribeiro.png" alt="Logo Thais Ribeiro" class="logo">
+                    <div class="logo-decoration"></div>
                 </div>
                 <h1>Avaliação Estética Premium</h1>
                 <p>Complete seu cadastro para iniciar sua jornada de transformação e bem-estar</p>
+                
                 <div class="progress-container">
+                    <div class="progress-steps">
+                        <div class="step active" data-step="1">
+                            <div class="step-circle">1</div>
+                            <div class="step-name">Dados Pessoais</div>
+                        </div>
+                        <div class="step" data-step="2">
+                            <div class="step-circle">2</div>
+                            <div class="step-name">Contato</div>
+                        </div>
+                        <div class="step" data-step="3">
+                            <div class="step-circle">3</div>
+                            <div class="step-name">Documentos</div>
+                        </div>
+                        <div class="step" data-step="4">
+                            <div class="step-circle">4</div>
+                            <div class="step-name">Procedimentos</div>
+                        </div>
+                        <div class="step" data-step="5">
+                            <div class="step-circle">5</div>
+                            <div class="step-name">Saúde</div>
+                        </div>
+                        <div class="step" data-step="6">
+                            <div class="step-circle">6</div>
+                            <div class="step-name">Confirmação</div>
+                        </div>
+                    </div>
                     <div class="progress-bar">
-                        <div class="progress-fill" id="progressBar"></div>
+                        <div class="progress-fill" id="progressBar" style="width: 16.67%;"></div>
                     </div>
                 </div>
             </div>
 
             <div class="form-body">
                 <form id="formularioEstetica" method="POST" action="https://n8n.lartechautomation.com/webhook/pre-atendimento">
-                    <!-- Dados do cliente já existentes (Somente leitura) -->
-                    <div class="card">
-                        <div class="card-header">Informações Pessoais</div>
-                        <div class="form-row">
-                            <div class="form-col">
-                                <div class="form-group">
-                                    <label for="nome" class="required-field">Nome Completo</label>
-                                    <input type="text" id="nome" name="nome" class="readonly-field" value="Lucas Do Amaral Ribeiro" readonly>
-                                </div>
-                            </div>
-                            <div class="form-col">
-                                <div class="form-group">
-                                    <label for="telefone" class="required-field">Número de Contato</label>
-                                    <input type="tel" id="telefone" name="telefone" class="readonly-field" value="5511976536152" readonly>
-                                </div>
-                            </div>
+                    <!-- Seção 1: Dados Pessoais -->
+                    <div class="form-section active" data-section="1">
+                        <div class="section-header">
+                            <h2 class="section-title">Dados Pessoais</h2>
                         </div>
-                    </div>
-
-                    <!-- Informações Pessoais Adicionais -->
-                    <div class="form-section">
-                        <h3 class="section-title">Dados Complementares</h3>
-                        <div class="form-row">
-                            <div class="form-col">
-                                <div class="form-group float-label">
-                                    <input type="date" id="dataNascimento" name="dataNascimento" required placeholder=" ">
-                                    <label for="dataNascimento" class="required-field">Data de Nascimento</label>
+                        <div class="section-content">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <div class="form-group float-label">
+                                        <input type="text" id="nome" name="nome" class="readonly-field" value="Lucas Do Amaral Ribeiro" readonly placeholder=" ">
+                                        <label for="nome" class="required-field">Nome Completo</label>
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <div class="form-group float-label">
+                                        <input type="tel" id="telefone" name="telefone" class="readonly-field" value="5511976536152" readonly placeholder=" ">
+                                        <label for="telefone" class="required-field">Número de Contato</label>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="form-col">
-                                <div class="form-group float-label">
-                                    <input type="email" id="email" name="email" required placeholder=" ">
-                                    <label for="email" class="required-field">E-mail</label>
+                            
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <div class="form-group float-label">
+                                        <input type="date" id="dataNascimento" name="dataNascimento" required placeholder=" ">
+                                        <label for="dataNascimento" class="required-field">Data de Nascimento</label>
+                                        <div class="helper-text">Selecione a data em que você nasceu</div>
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <div class="form-group float-label">
+                                        <select id="genero" name="genero" required placeholder=" ">
+                                            <option value=""></option>
+                                            <option value="Feminino">Feminino</option>
+                                            <option value="Masculino">Masculino</option>
+                                            <option value="Não Binário">Não Binário</option>
+                                            <option value="Prefiro não dizer">Prefiro não dizer</option>
+                                        </select>
+                                        <label for="genero">Gênero</label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="form-group float-label">
-                            <input type="text" id="endereco" name="endereco" placeholder=" " required>
-                            <label for="endereco" class="required-field">Endereço Completo</label>
-                        </div>
-                    </div>
-
-                    <!-- Informações da Avaliação -->
-                    <div class="form-section">
-                        <h3 class="section-title">Documentação</h3>
-                        <div class="form-row">
-                            <div class="form-col">
-                                <div class="form-group float-label">
-                                    <input type="text" id="cpf" name="cpf" placeholder=" " required>
-                                    <label for="cpf" class="required-field">CPF</label>
-                                </div>
-                            </div>
-                            <div class="form-col">
-                                <div class="form-group float-label">
-                                    <input type="text" id="rg" name="rg" placeholder=" ">
-                                    <label for="rg">RG</label>
-                                </div>
+                            
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-block next-btn" data-next="2">Continuar</button>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Procedimentos de Interesse -->
-                    <div class="form-section">
-                        <h3 class="section-title">Interesses Estéticos</h3>
-                        <div class="form-group">
-                            <label>Procedimentos de Interesse (selecione uma ou mais opções)</label>
-                            <div class="checkbox-group">
-                                <div class="checkbox-container">
-                                    <input type="checkbox" id="criolipolise" name="procedimentos[]" value="CRIOLIPÓLISE">
-                                    <label for="criolipolise">CRIOLIPÓLISE</label>
+                    
+                    <!-- Seção 2: Informações de Contato -->
+                    <div class="form-section" data-section="2">
+                        <div class="section-header">
+                            <h2 class="section-title">Informações de Contato</h2>
+                        </div>
+                        <div class="section-content">
+                            <div class="form-group float-label">
+                                <input type="email" id="email" name="email" required placeholder=" ">
+                                <label for="email" class="required-field">E-mail</label>
+                                <div class="helper-text">Utilizaremos para enviar informações sobre seu tratamento</div>
+                            </div>
+                            
+                            <div class="form-group float-label">
+                                <input type="text" id="endereco" name="endereco" placeholder=" " required>
+                                <label for="endereco" class="required-field">Endereço Completo</label>
+                                <div class="helper-text">Rua, número, bairro, cidade, CEP</div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <div class="form-group float-label">
+                                        <input type="text" id="cidade" name="cidade" required placeholder=" ">
+                                        <label for="cidade" class="required-field">Cidade</label>
+                                    </div>
                                 </div>
-                                <div class="checkbox-container">
-                                    <input type="checkbox" id="enzimas" name="procedimentos[]" value="APLICAÇÃO DE ENZIMAS">
-                                    <label for="enzimas">APLICAÇÃO DE ENZIMAS</label>
-                                </div>
-                                <div class="checkbox-container">
-                                    <input type="checkbox" id="radiofrequencia" name="procedimentos[]" value="RADIOFREQUÊNCIA">
-                                    <label for="radiofrequencia">RADIOFREQUÊNCIA</label>
-                                </div>
-                                <div class="checkbox-container">
-                                    <input type="checkbox" id="hidrolipoclasia" name="procedimentos[]" value="HIDROLIPOCLASIA">
-                                    <label for="hidrolipoclasia">HIDROLIPOCLASIA</label>
-                                </div>
-                                <div class="checkbox-container">
-                                    <input type="checkbox" id="diastase" name="procedimentos[]" value="DIÁSTASE PHD">
-                                    <label for="diastase">DIÁSTASE PHD</label>
-                                </div>
-                                <div class="checkbox-container">
-                                    <input type="checkbox" id="posoperatorio" name="procedimentos[]" value="PÓS-OPERATÓRIO">
-                                    <label for="posoperatorio">PÓS-OPERATÓRIO</label>
-                                </div>
-                                <div class="checkbox-container">
-                                    <input type="checkbox" id="relaxante" name="procedimentos[]" value="MASSAGEM RELAXANTE">
-                                    <label for="relaxante">MASSAGEM RELAXANTE</label>
-                                </div>
-                                <div class="checkbox-container">
-                                    <input type="checkbox" id="drenagem" name="procedimentos[]" value="DRENAGEM LINFÁTICA">
-                                    <label for="drenagem">DRENAGEM LINFÁTICA</label>
-                                </div>
-                                <div class="checkbox-container">
-                                    <input type="checkbox" id="outros" name="procedimentos[]" value="Outros">
-                                    <label for="outros">OUTRO PROCEDIMENTO</label>
+                                <div class="form-col">
+                                    <div class="form-group float-label">
+                                        <input type="text" id="estado" name="estado" required placeholder=" ">
+                                        <label for="estado" class="required-field">Estado</label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="form-group float-label">
-                            <textarea id="outrosProcedimentos" name="outrosProcedimentos" placeholder=" "></textarea>
-                            <label for="outrosProcedimentos">Outros procedimentos ou observações</label>
-                        </div>
-                    </div>
-
-                    <!-- Informações de Saúde -->
-                    <div class="form-section">
-                        <h3 class="section-title">Histórico de Saúde</h3>
-                        <div class="form-group">
-                            <label>Possui alguma condição de saúde relevante?</label>
-                            <div class="radio-group">
-                                <div class="radio-container">
-                                    <input type="radio" id="saudeNao" name="condicaoSaude" value="Não" checked>
-                                    <label for="saudeNao">Não</label>
-                                </div>
-                                <div class="radio-container">
-                                    <input type="radio" id="saudeSim" name="condicaoSaude" value="Sim">
-                                    <label for="saudeSim">Sim</label>
-                                </div>
+                            
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-outline prev-btn" data-prev="1">Voltar</button>
+                                <button type="button" class="btn next-btn" data-next="3">Continuar</button>
                             </div>
                         </div>
-
-                        <div class="form-group float-label">
-                            <textarea id="descricaoSaude" name="descricaoSaude" placeholder=" "></textarea>
-                            <label for="descricaoSaude">Detalhes sobre sua condição de saúde</label>
+                    </div>
+                    
+                    <!-- Seção 3: Documentação -->
+                    <div class="form-section" data-section="3">
+                        <div class="section-header">
+                            <h2 class="section-title">Documentação</h2>
+                        </div>
+                        <div class="section-content">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <div class="form-group float-label">
+                                        <input type="text" id="cpf" name="cpf" placeholder=" " required>
+                                        <label for="cpf" class="required-field">CPF</label>
+                                        <div class="helper-text">Digite apenas números, a formatação será automática</div>
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <div class="form-group float-label">
+                                        <input type="text" id="rg" name="rg" placeholder=" ">
+                                        <label for="rg">RG</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-outline prev-btn" data-prev="2">Voltar</button>
+                                <button type="button" class="btn next-btn" data-next="4">Continuar</button>
+                            </div>
                         </div>
                     </div>
+                    
+                    <!-- Seção 4: Procedimentos de Interesse -->
+                    <div class="form-section" data-section="4">
+                        <div class="section-header">
+                            <h2 class="section-title">Procedimentos de Interesse</h2>
+                        </div>
+                        <div class="section-content">
+                            <div class="form-group">
+                                <label>Selecione os procedimentos que deseja realizar (uma ou mais opções)</label>
+                                <div class="checkbox-group">
+                                    <label class="checkbox-container">CRIOLIPÓLISE
+                                        <input type="checkbox" name="procedimentos[]" value="CRIOLIPÓLISE">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="checkbox-container">APLICAÇÃO DE ENZIMAS
+                                        <input type="checkbox" name="procedimentos[]" value="APLICAÇÃO DE ENZIMAS">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="checkbox-container">RADIOFREQUÊNCIA
+                                        <input type="checkbox" name="procedimentos[]" value="RADIOFREQUÊNCIA">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="checkbox-container">HIDROLIPOCLASIA
+                                        <input type="checkbox" name="procedimentos[]" value="HIDROLIPOCLASIA">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="checkbox-container">DIÁSTASE PHD
+                                        <input type="checkbox" name="procedimentos[]" value="DIÁSTASE PHD">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="checkbox-container">PÓS-OPERATÓRIO
+                                        <input type="checkbox" name="procedimentos[]" value="PÓS-OPERATÓRIO">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="checkbox-container">MASSAGEM RELAXANTE
+                                        <input type="checkbox" name="procedimentos[]" value="MASSAGEM RELAXANTE">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="checkbox-container">DRENAGEM LINFÁTICA
+                                        <input type="checkbox" name="procedimentos[]" value="DRENAGEM LINFÁTICA">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="checkbox-container">OUTRO PROCEDIMENTO
+                                        <input type="checkbox" name="procedimentos[]" value="Outros" id="outroCheck">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                            </div>
 
-                    <div class="divider"></div>
+                            <div class="form-group float-label" id="outrosProcedimentosGroup" style="display: none;">
+                                <textarea id="outrosProcedimentos" name="outrosProcedimentos" placeholder=" "></textarea>
+                                <label for="outrosProcedimentos">Especifique os outros procedimentos</label>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Envie fotos da área que deseja tratar (opcional)</label>
+                                <div class="file-upload">
+                                    <div class="file-upload-icon">📷</div>
+                                    <div class="file-upload-text">Arraste e solte as imagens aqui ou clique para selecionar</div>
+                                    <div class="file-upload-subtext" style="font-size: 12px; color: var(--text-light);">Máximo 3 imagens, formato JPG ou PNG</div>
+                                    <input type="file" class="file-upload-input" accept="image/*" multiple>
+                                </div>
+                                <div class="file-preview"></div>
+                            </div>
+                            
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-outline prev-btn" data-prev="3">Voltar</button>
+                                <button type="button" class="btn next-btn" data-next="5">Continuar</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Seção 5: Informações de Saúde -->
+                    <div class="form-section" data-section="5">
+                        <div class="section-header">
+                            <h2 class="section-title">Informações de Saúde</h2>
+                        </div>
+                        <div class="section-content">
+                            <div class="form-group">
+                                <label>Possui alguma condição de saúde relevante?</label>
+                                <div class="radio-group">
+                                    <label class="radio-container">Não
+                                        <input type="radio" name="condicaoSaude" value="Não" checked id="saudeNao">
+                                        <span class="radio-checkmark"></span>
+                                    </label>
+                                    <label class="radio-container">Sim
+                                        <input type="radio" name="condicaoSaude" value="Sim" id="saudeSim">
+                                        <span class="radio-checkmark"></span>
+                                    </label>
+                                </div>
+                            </div>
 
-                    <div class="form-group text-center">
-                        <button type="submit" class="btn btn-block" id="submitBtn">
-                            Enviar Avaliação
-                            <span class="spinner"></span>
-                        </button>
+                            <div class="form-group float-label" id="descricaoSaudeGroup" style="display: none;">
+                                <textarea id="descricaoSaude" name="descricaoSaude" placeholder=" "></textarea>
+                                <label for="descricaoSaude">Detalhes sobre sua condição de saúde</label>
+                                <div class="helper-text">Inclua condições médicas, alergias, medicamentos que utiliza regularmente, etc.</div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Está grávida ou amamentando?</label>
+                                <div class="radio-group">
+                                    <label class="radio-container">Não
+                                        <input type="radio" name="gravidez" value="Não" checked>
+                                        <span class="radio-checkmark"></span>
+                                    </label>
+                                    <label class="radio-container">Sim
+                                        <input type="radio" name="gravidez" value="Sim">
+                                        <span class="radio-checkmark"></span>
+                                    </label>
+                                    <label class="radio-container">Não se aplica
+                                        <input type="radio" name="gravidez" value="Não se aplica">
+                                        <span class="radio-checkmark"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-outline prev-btn" data-prev="4">Voltar</button>
+                                <button type="button" class="btn next-btn" data-next="6">Continuar</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Seção 6: Confirmação -->
+                    <div class="form-section" data-section="6">
+                        <div class="section-header">
+                            <h2 class="section-title">Confirmar Informações</h2>
+                        </div>
+                        <div class="section-content">
+                            <div class="form-group">
+                                <p>Verifique se todas as informações estão corretas antes de enviar o formulário.</p>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="checkbox-container">
+                                    Concordo com os <a href="#" target="_blank">termos de uso</a> e <a href="#" target="_blank">política de privacidade</a>
+                                    <input type="checkbox" name="termos" required id="termosCheck">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="checkbox-container">
+                                    Desejo receber novidades, promoções e informações sobre tratamentos por e-mail ou WhatsApp
+                                    <input type="checkbox" name="marketing" value="sim">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-outline prev-btn" data-prev="5">Voltar</button>
+                                <button type="submit" class="btn btn-block" id="submitBtn">
+                                    Enviar Avaliação
+                                    <span class="spinner"></span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>
             
             <div class="form-footer">
                 <p>Thais Ribeiro Estética Corporal Avançada &copy; 2025 | Todos os direitos reservados</p>
-                <p>Ao enviar este formulário, você concorda com nossa <a href="#">Política de Privacidade</a></p>
+                <p>Dúvidas? Entre em contato pelo WhatsApp <a href="tel:+5500000000000">(00) 00000-0000</a></p>
             </div>
         </div>
     </div>
 
     <script>
-        // Função para formatar o CPF enquanto o usuário digita
+        // Formatações de campos
         document.getElementById('cpf').addEventListener('input', function (e) {
             let value = e.target.value.replace(/\D/g, '');
             if (value.length > 11) value = value.slice(0, 11);
@@ -801,7 +1094,6 @@
             e.target.value = value;
         });
         
-        // Função para formatar o RG enquanto o usuário digita
         document.getElementById('rg').addEventListener('input', function (e) {
             let value = e.target.value.replace(/\D/g, '');
             if (value.length > 9) value = value.slice(0, 9);
@@ -817,83 +1109,264 @@
             e.target.value = value;
         });
 
-        // Função para validar o formulário antes de enviar
-        document.getElementById('formularioEstetica').addEventListener('submit', function(e) {
-            e.preventDefault(); // Prevenir o envio padrão do formulário
-            
-            // Validar formulário
-            let isValid = true;
-            const requiredInputs = document.querySelectorAll('[required]');
-            
-            requiredInputs.forEach(input => {
-                if (input.value.trim() === '') {
-                    input.style.borderColor = '#dc3545';
-                    input.style.backgroundColor = 'rgba(220, 53, 69, 0.05)';
-                    isValid = false;
-                    
-                    // Adicionar uma mensagem de erro abaixo do campo
-                    const errorMsg = document.createElement('div');
-                    errorMsg.className = 'error-message';
-                    errorMsg.textContent = 'Este campo é obrigatório';
-                    errorMsg.style.color = '#dc3545';
-                    errorMsg.style.fontSize = '0.8rem';
-                    errorMsg.style.marginTop = '5px';
-                    
-                    // Evitar duplicar mensagens de erro
-                    if (!input.nextElementSibling || !input.nextElementSibling.classList.contains('error-message')) {
-                        input.parentElement.appendChild(errorMsg);
+        // Navegação entre abas
+        const nextButtons = document.querySelectorAll('.next-btn');
+        const prevButtons = document.querySelectorAll('.prev-btn');
+        
+        nextButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const currentSection = parseInt(this.getAttribute('data-next')) - 1;
+                const nextSection = parseInt(this.getAttribute('data-next'));
+                
+                // Validar campos da seção atual
+                const currentSectionElement = document.querySelector(`.form-section[data-section="${currentSection}"]`);
+                const requiredFields = currentSectionElement.querySelectorAll('[required]');
+                let isValid = true;
+                
+                requiredFields.forEach(field => {
+                    if (field.value.trim() === '') {
+                        field.style.borderColor = '#f44336';
+                        
+                        // Adicionar mensagem de erro se ainda não existir
+                        if (!field.nextElementSibling || !field.nextElementSibling.classList.contains('error-message')) {
+                            const errorMsg = document.createElement('div');
+                            errorMsg.className = 'error-message';
+                            errorMsg.textContent = 'Este campo é obrigatório';
+                            field.parentElement.appendChild(errorMsg);
+                        }
+                        
+                        isValid = false;
+                    } else {
+                        field.style.borderColor = '';
+                        
+                        // Remover mensagem de erro se existir
+                        const errorMsg = field.parentElement.querySelector('.error-message');
+                        if (errorMsg) {
+                            errorMsg.remove();
+                        }
                     }
+                });
+                
+                if (!isValid) {
+                    // Focar no primeiro campo com erro
+                    const firstInvalidField = currentSectionElement.querySelector('[style*="border-color: #f44336"]');
+                    if (firstInvalidField) {
+                        firstInvalidField.focus();
+                    }
+                    return;
+                }
+                
+                // Avançar para a próxima seção
+                document.querySelector(`.form-section[data-section="${currentSection}"]`).classList.remove('active');
+                document.querySelector(`.form-section[data-section="${nextSection}"]`).classList.add('active');
+                
+                // Atualizar passos
+                document.querySelectorAll('.step').forEach(step => {
+                    const stepNum = parseInt(step.getAttribute('data-step'));
+                    if (stepNum < nextSection) {
+                        step.classList.add('completed');
+                        step.classList.remove('active');
+                    } else if (stepNum === nextSection) {
+                        step.classList.add('active');
+                    } else {
+                        step.classList.remove('active', 'completed');
+                    }
+                });
+                
+                // Atualizar barra de progresso
+                const progressPercentage = (nextSection / 6) * 100;
+                document.getElementById('progressBar').style.width = progressPercentage + '%';
+                
+                // Rolar para o topo
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        prevButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const currentSection = parseInt(this.getAttribute('data-prev')) + 1;
+                const prevSection = parseInt(this.getAttribute('data-prev'));
+                
+                document.querySelector(`.form-section[data-section="${currentSection}"]`).classList.remove('active');
+                document.querySelector(`.form-section[data-section="${prevSection}"]`).classList.add('active');
+                
+                // Atualizar passos
+                document.querySelectorAll('.step').forEach(step => {
+                    const stepNum = parseInt(step.getAttribute('data-step'));
+                    if (stepNum < prevSection) {
+                        step.classList.add('completed');
+                        step.classList.remove('active');
+                    } else if (stepNum === prevSection) {
+                        step.classList.add('active');
+                    } else {
+                        step.classList.remove('active', 'completed');
+                    }
+                });
+                
+                // Atualizar barra de progresso
+                const progressPercentage = (prevSection / 6) * 100;
+                document.getElementById('progressBar').style.width = progressPercentage + '%';
+                
+                // Rolar para o topo
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Toggle para mostrar/ocultar campo de descrição de saúde
+        document.querySelectorAll('input[name="condicaoSaude"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const descricaoSaudeGroup = document.getElementById('descricaoSaudeGroup');
+                const saudeSimSelected = document.getElementById('saudeSim').checked;
+                
+                if (saudeSimSelected) {
+                    descricaoSaudeGroup.style.display = 'block';
+                    document.getElementById('descricaoSaude').setAttribute('required', '');
+                } else {
+                    descricaoSaudeGroup.style.display = 'none';
+                    document.getElementById('descricaoSaude').removeAttribute('required');
+                    document.getElementById('descricaoSaude').value = '';
                 }
             });
+        });
+        
+        // Toggle para mostrar/ocultar campo de outros procedimentos
+        document.getElementById('outroCheck').addEventListener('change', function() {
+            const outrosProcedimentosGroup = document.getElementById('outrosProcedimentosGroup');
             
-            if (!isValid) {
-                // Rolar até o primeiro campo com erro
-                const firstError = document.querySelector('[style*="border-color: #dc3545"]');
-                if (firstError) {
-                    firstError.focus();
-                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            if (this.checked) {
+                outrosProcedimentosGroup.style.display = 'block';
+                document.getElementById('outrosProcedimentos').setAttribute('required', '');
+            } else {
+                outrosProcedimentosGroup.style.display = 'none';
+                document.getElementById('outrosProcedimentos').removeAttribute('required');
+                document.getElementById('outrosProcedimentos').value = '';
+            }
+        });
+        
+        // Upload de imagem com preview
+        const fileUpload = document.querySelector('.file-upload-input');
+        const filePreview = document.querySelector('.file-preview');
+        let uploadedFiles = [];
+        
+        fileUpload.addEventListener('change', function(e) {
+            const files = e.target.files;
+            
+            if (files.length > 0) {
+                // Limitar a 3 arquivos
+                const totalFiles = uploadedFiles.length + files.length;
+                if (totalFiles > 3) {
+                    alert('Você pode enviar no máximo 3 imagens');
+                    return;
                 }
-                return false;
+                
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    
+                    // Verificar se é uma imagem
+                    if (!file.type.match('image.*')) {
+                        alert('Por favor, selecione apenas imagens');
+                        continue;
+                    }
+                    
+                    uploadedFiles.push(file);
+                    
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const previewItem = document.createElement('div');
+                        previewItem.className = 'file-preview-item';
+                        
+                        const previewImg = document.createElement('img');
+                        previewImg.className = 'file-preview-img';
+                        previewImg.src = e.target.result;
+                        
+                        const removeBtn = document.createElement('div');
+                        removeBtn.className = 'file-preview-remove';
+                        removeBtn.innerHTML = '×';
+                        removeBtn.addEventListener('click', function() {
+                            const index = uploadedFiles.indexOf(file);
+                            if (index > -1) {
+                                uploadedFiles.splice(index, 1);
+                            }
+                            previewItem.remove();
+                        });
+                        
+                        previewItem.appendChild(previewImg);
+                        previewItem.appendChild(removeBtn);
+                        filePreview.appendChild(previewItem);
+                    };
+                    
+                    reader.readAsDataURL(file);
+                }
+            }
+        });
+        
+        // Validação e envio do formulário
+        document.getElementById('formularioEstetica').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Verificar se os termos foram aceitos
+            if (!document.getElementById('termosCheck').checked) {
+                alert('Você precisa aceitar os termos para continuar');
+                return;
             }
             
             // Mostrar spinner de carregamento
             document.getElementById('submitBtn').classList.add('loading');
             
-            // Pegar os dados do formulário
+            // Criar FormData para envio
             const formData = new FormData(this);
             
-            // Enviar os dados via AJAX
+            // Adicionar arquivos de imagem
+            uploadedFiles.forEach((file, index) => {
+                formData.append(`imagem_${index}`, file);
+            });
+            
+            // Enviar formulário via AJAX
             fetch('https://n8n.lartechautomation.com/webhook/pre-atendimento', {
                 method: 'POST',
                 body: formData
             })
             .then(response => {
                 if (response.ok) {
-                    // Mostrar uma mensagem de sucesso
+                    // Mostrar mensagem de sucesso
+                    const formElement = document.getElementById('formularioEstetica');
+                    const formBody = document.querySelector('.form-body');
+                    
                     const successMessage = document.createElement('div');
                     successMessage.className = 'success-message';
                     successMessage.innerHTML = `
-                        <div style="background-color: rgba(40, 167, 69, 0.1); border: 1px solid #28a745; border-radius: 10px; padding: 20px; text-align: center; margin: 20px 0;">
-                            <h3 style="color: #28a745; margin-bottom: 15px;">Formulário Enviado com Sucesso!</h3>
-                            <p>Obrigado por completar seu cadastro. Você será redirecionado em alguns segundos...</p>
-                            <div style="width: 50px; height: 50px; border: 5px solid rgba(40, 167, 69, 0.2); border-top-color: #28a745; border-radius: 50%; margin: 20px auto; animation: spin 1s linear infinite;"></div>
+                        <h3>Avaliação Enviada com Sucesso!</h3>
+                        <p>Obrigada por completar seu cadastro. Entraremos em contato em breve para agendar sua avaliação presencial.</p>
+                        <div style="margin: 30px 0;">
+                            <svg width="100" height="100" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="45" fill="none" stroke="#E8E8E8" stroke-width="5" />
+                                <path d="M25,55 L45,70 L75,35" fill="none" stroke="#4CAF50" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+                                    <animate attributeName="stroke-dasharray" from="0,100" to="110,0" dur="1s" fill="freeze" />
+                                </path>
+                            </svg>
                         </div>
+                        <p>Você será redirecionada em alguns segundos...</p>
                     `;
                     
-                    // Inserir a mensagem de sucesso antes do formulário
-                    const formElement = document.getElementById('formularioEstetica');
-                    formElement.parentElement.insertBefore(successMessage, formElement);
+                    formBody.innerHTML = '';
+                    formBody.appendChild(successMessage);
                     
-                    // Ocultar o formulário
-                    formElement.style.display = 'none';
+                    // Atualizar barra de progresso para 100%
+                    document.getElementById('progressBar').style.width = '100%';
                     
-                    // Redirecionar após um curto período
+                    // Redirecionar após alguns segundos
                     setTimeout(function() {
                         window.location.href = "https://linkbio.co/ThaisEsteticaCorporal";
                     }, 3000);
                 } else {
                     // Mostrar mensagem de erro
-                    alert('Ocorreu um erro ao enviar o formulário. Por favor, tente novamente.');
+                    alert('Ocorreu um erro ao enviar o formulário. Por favor, tente novamente ou entre em contato por WhatsApp.');
                     document.getElementById('submitBtn').classList.remove('loading');
                 }
             })
@@ -903,114 +1376,6 @@
                 document.getElementById('submitBtn').classList.remove('loading');
             });
         });
-        
-        // Melhoria da experiência do usuário com animação suave de scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-        
-        // Mostrar/ocultar campo de descrição de saúde dependendo da seleção
-        document.querySelectorAll('input[name="condicaoSaude"]').forEach(radio => {
-            radio.addEventListener('change', function() {
-                const descricaoSaude = document.getElementById('descricaoSaude');
-                const saudeSimSelected = document.getElementById('saudeSim').checked;
-                
-                if (saudeSimSelected) {
-                    descricaoSaude.setAttribute('required', '');
-                    descricaoSaude.parentElement.style.display = 'block';
-                } else {
-                    descricaoSaude.removeAttribute('required');
-                    descricaoSaude.value = '';
-                    descricaoSaude.parentElement.style.display = 'none';
-                }
-            });
-        });
-        
-        // Inicializar o estado do campo de descrição de saúde
-        document.getElementById('descricaoSaude').parentElement.style.display = 'none';
-        
-        // Adicionar validação visual em tempo real
-        const inputs = document.querySelectorAll('input[required], textarea[required]');
-        inputs.forEach(input => {
-            input.addEventListener('blur', function() {
-                if (this.value.trim() === '') {
-                    this.style.borderColor = '#dc3545';
-                    this.style.backgroundColor = 'rgba(220, 53, 69, 0.05)';
-                } else {
-                    this.style.borderColor = '#28a745';
-                    this.style.backgroundColor = 'rgba(40, 167, 69, 0.05)';
-                }
-            });
-            
-            input.addEventListener('input', function() {
-                if (this.value.trim() !== '') {
-                    this.style.borderColor = '';
-                    this.style.backgroundColor = '';
-                }
-                // Atualizar a barra de progresso
-                updateProgressBar();
-            });
-        });
-        
-        // Atualizar a barra de progresso com base nos campos preenchidos
-        function updateProgressBar() {
-            const requiredFields = document.querySelectorAll('[required]');
-            let filledFields = 0;
-            
-            requiredFields.forEach(field => {
-                if (field.value.trim() !== '') {
-                    filledFields++;
-                }
-            });
-            
-            const progressPercentage = (filledFields / requiredFields.length) * 100;
-            document.getElementById('progressBar').style.width = progressPercentage + '%';
-            
-            // Mudar a cor com base no progresso
-            if (progressPercentage < 30) {
-                document.getElementById('progressBar').style.background = 'linear-gradient(to right, #f8d7da, #dc3545)';
-            } else if (progressPercentage < 70) {
-                document.getElementById('progressBar').style.background = 'linear-gradient(to right, #fff3cd, #ffc107)';
-            } else {
-                document.getElementById('progressBar').style.background = 'linear-gradient(to right, #d4edda, #28a745)';
-            }
-        }
-        
-        // Inicializar a barra de progresso
-        updateProgressBar();
-        
-        // Adicionar animação ao rolar a página
-        function checkVisibility() {
-            const elements = document.querySelectorAll('.form-section, .card');
-            elements.forEach(element => {
-                const position = element.getBoundingClientRect();
-                
-                // Verificar se o elemento está visível na viewport
-                if(position.top < window.innerHeight && position.bottom >= 0) {
-                    element.style.opacity = '1';
-                    element.style.transform = 'translateY(0)';
-                }
-            });
-        }
-        
-        // Configurar elementos para animação
-        document.querySelectorAll('.form-section, .card').forEach(element => {
-            element.style.opacity = '0';
-            element.style.transform = 'translateY(20px)';
-            element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-        });
-        
-        // Adicionar eventos de scroll
-        window.addEventListener('scroll', checkVisibility);
-        window.addEventListener('resize', checkVisibility);
-        
-        // Verificar visibilidade inicial
-        checkVisibility();
     </script>
 </body>
 </html>
