@@ -67,8 +67,8 @@
         }
 
         .logo {
-            width: 180px;
-            margin: 0 auto;
+            width: 200px;
+            margin: 24px auto;
             position: relative;
             transition: var(--transition);
             display: block;
@@ -79,11 +79,23 @@
             top: -15px;
             left: 50%;
             transform: translateX(-50%);
-            width: 220px;
-            height: 220px;
+            width: 240px;
+            height: 240px;
             border-radius: 50%;
             background: radial-gradient(circle, rgba(245, 235, 221, 0.5) 0%, rgba(255, 255, 255, 0) 70%);
             z-index: -1;
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                width: 140px;
+                margin: 16px auto;
+            }
+            
+            .logo-decoration {
+                width: 180px;
+                height: 180px;
+            }
         }
 
         .header h1 {
@@ -624,17 +636,44 @@
             display: block;
         }
 
-        /* Error Messages */
-        .error-message {
-            color: #f44336;
+        /* Estilo para mensagens de erro elegantes */
+        .error-tooltip {
+            position: absolute;
             font-size: 12px;
+            color: #f44336;
+            background-color: rgba(244, 67, 54, 0.1);
+            border: 1px solid rgba(244, 67, 54, 0.3);
+            border-radius: 4px;
+            padding: 5px 10px;
             margin-top: 5px;
             animation: fadeIn 0.3s ease;
+            display: none;
+            left: 16px;
+            max-width: calc(100% - 32px);
+            z-index: 10;
         }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-5px); }
+
+        .error-field {
+            border-color: var(--primary-dark) !important;
+            background-color: rgba(247, 215, 215, 0.1) !important;
+            box-shadow: 0 0 0 1px var(--primary-dark) !important;
+        }
+
+        /* Input masks and validation styles */
+        .validated-input {
+            border-color: #4CAF50 !important;
+            background-color: rgba(76, 175, 80, 0.05) !important;
+        }
+
+        /* Tooltip animation */
+        @keyframes tooltipFadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tooltip-visible {
+            display: block;
+            animation: tooltipFadeIn 0.3s ease;
         }
 
         /* Success Message */
@@ -751,7 +790,7 @@
         <div class="form-wrapper">
             <div class="header">
                 <div class="logo-container">
-                    <img src="https://fbnqqxlvcilobufelbvs.supabase.co/storage/v1/object/public/documentos//logo_thaisribeiro.png" alt="Logo Thais Ribeiro" class="logo">
+                    <img src="https://fbnqqxlvcilobufelbvs.supabase.co/storage/v1/object/public/documentos//thais_semfundo.png" alt="Logo Thais Ribeiro" class="logo">
                     <div class="logo-decoration"></div>
                 </div>
                 <h1>Avaliação Estética Premium</h1>
@@ -801,14 +840,15 @@
                             <div class="form-row">
                                 <div class="form-col">
                                     <div class="form-group float-label">
-                                        <input type="text" id="nome" name="nome" class="readonly-field" value="Thatiane Ganéo 🤩" readonly placeholder=" ">
+                                        <input type="text" id="nome" name="nome" required placeholder=" ">
                                         <label for="nome" class="required-field">Nome Completo</label>
                                     </div>
                                 </div>
                                 <div class="form-col">
                                     <div class="form-group float-label">
-                                        <input type="tel" id="telefone" name="telefone" class="readonly-field" value="5511972298982" readonly placeholder=" ">
+                                        <input type="tel" id="telefone" name="telefone" required placeholder=" " pattern="\([0-9]{2}\) [0-9]{5}-[0-9]{4}">
                                         <label for="telefone" class="required-field">Número de Contato</label>
+                                        <div class="helper-text">Formato: (99) 99999-9999</div>
                                     </div>
                                 </div>
                             </div>
@@ -1078,7 +1118,7 @@
     </div>
 
     <script>
-        // Formatações de campos
+        // Formatações de campos e máscaras
         document.getElementById('cpf').addEventListener('input', function (e) {
             let value = e.target.value.replace(/\D/g, '');
             if (value.length > 11) value = value.slice(0, 11);
@@ -1108,6 +1148,26 @@
             
             e.target.value = value;
         });
+        
+        // Máscara para telefone brasileiro
+        document.getElementById('telefone').addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 11) value = value.slice(0, 11);
+            
+            if (value.length > 6) {
+                value = value.replace(/^(\d{2})(\d{1})(\d{4})(\d{0,4})$/, "($1) $2$3-$4");
+            } else if (value.length > 2) {
+                value = value.replace(/^(\d{2})(\d{0,5})$/, "($1) $2");
+            }
+            
+            e.target.value = value;
+        });
+        
+        // Função de validação de email
+        function validateEmail(email) {
+            const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(String(email).toLowerCase());
+        }
 
         // Navegação entre abas
         const nextButtons = document.querySelectorAll('.next-btn');
@@ -1123,35 +1183,60 @@
                 const requiredFields = currentSectionElement.querySelectorAll('[required]');
                 let isValid = true;
                 
+                // Remover todos os tooltips de erro anteriores
+                document.querySelectorAll('.error-tooltip').forEach(tooltip => {
+                    tooltip.remove();
+                });
+                
+                // Remover classes de erro anteriores
+                document.querySelectorAll('.error-field').forEach(field => {
+                    field.classList.remove('error-field');
+                });
+                
                 requiredFields.forEach(field => {
                     if (field.value.trim() === '') {
-                        field.style.borderColor = '#f44336';
+                        field.classList.add('error-field');
                         
-                        // Adicionar mensagem de erro se ainda não existir
-                        if (!field.nextElementSibling || !field.nextElementSibling.classList.contains('error-message')) {
-                            const errorMsg = document.createElement('div');
-                            errorMsg.className = 'error-message';
-                            errorMsg.textContent = 'Este campo é obrigatório';
-                            field.parentElement.appendChild(errorMsg);
-                        }
+                        // Criar tooltip de erro elegante
+                        const errorTooltip = document.createElement('div');
+                        errorTooltip.className = 'error-tooltip tooltip-visible';
+                        errorTooltip.textContent = 'Este campo é obrigatório';
+                        
+                        // Posicionar o tooltip
+                        const fieldContainer = field.closest('.form-group');
+                        fieldContainer.style.position = 'relative';
+                        fieldContainer.appendChild(errorTooltip);
                         
                         isValid = false;
                     } else {
-                        field.style.borderColor = '';
-                        
-                        // Remover mensagem de erro se existir
-                        const errorMsg = field.parentElement.querySelector('.error-message');
-                        if (errorMsg) {
-                            errorMsg.remove();
+                        // Validação específica para o campo de e-mail
+                        if (field.type === 'email' && !validateEmail(field.value)) {
+                            field.classList.add('error-field');
+                            
+                            const errorTooltip = document.createElement('div');
+                            errorTooltip.className = 'error-tooltip tooltip-visible';
+                            errorTooltip.textContent = 'Por favor, insira um e-mail válido';
+                            
+                            const fieldContainer = field.closest('.form-group');
+                            fieldContainer.style.position = 'relative';
+                            fieldContainer.appendChild(errorTooltip);
+                            
+                            isValid = false;
+                        } else {
+                            field.classList.add('validated-input');
                         }
                     }
                 });
                 
                 if (!isValid) {
-                    // Focar no primeiro campo com erro
-                    const firstInvalidField = currentSectionElement.querySelector('[style*="border-color: #f44336"]');
+                    // Focar e rolar até o primeiro campo com erro
+                    const firstInvalidField = currentSectionElement.querySelector('.error-field');
                     if (firstInvalidField) {
                         firstInvalidField.focus();
+                        firstInvalidField.scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'center' 
+                        });
                     }
                     return;
                 }
@@ -1249,70 +1334,182 @@
             }
         });
         
-        // Upload de imagem com preview
-        const fileUpload = document.querySelector('.file-upload-input');
-        const filePreview = document.querySelector('.file-preview');
-        let uploadedFiles = [];
-        
-        fileUpload.addEventListener('change', function(e) {
-            const files = e.target.files;
+        // Inicializar imagem do logo otimizada para retina
+        window.addEventListener('DOMContentLoaded', (event) => {
+            // Verificar se a tela é retina display
+            const isRetina = window.devicePixelRatio > 1;
             
-            if (files.length > 0) {
-                // Limitar a 3 arquivos
-                const totalFiles = uploadedFiles.length + files.length;
-                if (totalFiles > 3) {
-                    alert('Você pode enviar no máximo 3 imagens');
-                    return;
-                }
+            if (isRetina) {
+                const logoImg = document.querySelector('.logo');
+                // Supondo que existe uma versão 2x do logo disponível
+                const retinaUrl = logoImg.src.replace('.png', '@2x.png');
                 
-                for (let i = 0; i < files.length; i++) {
-                    const file = files[i];
-                    
-                    // Verificar se é uma imagem
-                    if (!file.type.match('image.*')) {
-                        alert('Por favor, selecione apenas imagens');
-                        continue;
-                    }
-                    
-                    uploadedFiles.push(file);
-                    
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        const previewItem = document.createElement('div');
-                        previewItem.className = 'file-preview-item';
-                        
-                        const previewImg = document.createElement('img');
-                        previewImg.className = 'file-preview-img';
-                        previewImg.src = e.target.result;
-                        
-                        const removeBtn = document.createElement('div');
-                        removeBtn.className = 'file-preview-remove';
-                        removeBtn.innerHTML = '×';
-                        removeBtn.addEventListener('click', function() {
-                            const index = uploadedFiles.indexOf(file);
-                            if (index > -1) {
-                                uploadedFiles.splice(index, 1);
-                            }
-                            previewItem.remove();
-                        });
-                        
-                        previewItem.appendChild(previewImg);
-                        previewItem.appendChild(removeBtn);
-                        filePreview.appendChild(previewItem);
-                    };
-                    
-                    reader.readAsDataURL(file);
-                }
+                // Pré-carregar a imagem para verificar se existe
+                const preloadImg = new Image();
+                preloadImg.onload = function() {
+                    logoImg.src = retinaUrl;
+                };
+                preloadImg.src = retinaUrl;
             }
+            
+            // Inicializar validação em tempo real para campos obrigatórios
+            document.querySelectorAll('input[required], select[required], textarea[required]').forEach(field => {
+                field.addEventListener('blur', function() {
+                    validateField(this);
+                });
+                
+                field.addEventListener('input', function() {
+                    // Remover mensagens de erro quando o usuário começa a digitar
+                    if (this.classList.contains('error-field')) {
+                        this.classList.remove('error-field');
+                        const errorTooltip = this.closest('.form-group').querySelector('.error-tooltip');
+                        if (errorTooltip) {
+                            errorTooltip.remove();
+                        }
+                    }
+                });
+            });
         });
+        
+        // Função para validar um campo
+        function validateField(field) {
+            // Remover mensagens de erro existentes
+            const existingTooltip = field.closest('.form-group').querySelector('.error-tooltip');
+            if (existingTooltip) {
+                existingTooltip.remove();
+            }
+            
+            // Validar o campo
+            if (field.value.trim() === '') {
+                field.classList.add('error-field');
+                
+                // Criar tooltip de erro
+                const errorTooltip = document.createElement('div');
+                errorTooltip.className = 'error-tooltip tooltip-visible';
+                errorTooltip.textContent = 'Este campo é obrigatório';
+                
+                // Posicionar o tooltip
+                const fieldContainer = field.closest('.form-group');
+                fieldContainer.style.position = 'relative';
+                fieldContainer.appendChild(errorTooltip);
+                
+                return false;
+            } else if (field.type === 'email' && !validateEmail(field.value)) {
+                field.classList.add('error-field');
+                
+                // Criar tooltip de erro para email
+                const errorTooltip = document.createElement('div');
+                errorTooltip.className = 'error-tooltip tooltip-visible';
+                errorTooltip.textContent = 'Por favor, insira um e-mail válido';
+                
+                // Posicionar o tooltip
+                const fieldContainer = field.closest('.form-group');
+                fieldContainer.style.position = 'relative';
+                fieldContainer.appendChild(errorTooltip);
+                
+                return false;
+            } else {
+                field.classList.remove('error-field');
+                field.classList.add('validated-input');
+                return true;
+            }
+        }
         
         // Validação e envio do formulário
         document.getElementById('formularioEstetica').addEventListener('submit', function(e) {
             e.preventDefault();
             
+            // Verificar se há campos obrigatórios não preenchidos em todas as seções
+            const requiredFields = document.querySelectorAll('[required]');
+            let hasErrors = false;
+            
+            requiredFields.forEach(field => {
+                if (!validateField(field)) {
+                    hasErrors = true;
+                    
+                    // Identificar qual seção contém o campo com erro
+                    const section = field.closest('.form-section');
+                    const sectionNumber = section.getAttribute('data-section');
+                    
+                    // Tornar a seção ativa
+                    document.querySelectorAll('.form-section').forEach(s => {
+                        s.classList.remove('active');
+                    });
+                    section.classList.add('active');
+                    
+                    // Atualizar passos
+                    document.querySelectorAll('.step').forEach(step => {
+                        const stepNum = parseInt(step.getAttribute('data-step'));
+                        if (stepNum < sectionNumber) {
+                            step.classList.add('completed');
+                            step.classList.remove('active');
+                        } else if (stepNum == sectionNumber) {
+                            step.classList.add('active');
+                        } else {
+                            step.classList.remove('active', 'completed');
+                        }
+                    });
+                    
+                    // Atualizar barra de progresso
+                    const progressPercentage = (sectionNumber / 6) * 100;
+                    document.getElementById('progressBar').style.width = progressPercentage + '%';
+                    
+                    // Focar no primeiro campo com erro
+                    setTimeout(() => {
+                        field.focus();
+                        field.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 100);
+                }
+            });
+            
+            if (hasErrors) {
+                // Notificação elegante ao invés de alert
+                const notification = document.createElement('div');
+                notification.className = 'error-tooltip tooltip-visible';
+                notification.style.position = 'fixed';
+                notification.style.top = '20px';
+                notification.style.left = '50%';
+                notification.style.transform = 'translateX(-50%)';
+                notification.style.zIndex = '1000';
+                notification.style.padding = '10px 20px';
+                notification.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
+                notification.textContent = 'Por favor, preencha todos os campos obrigatórios';
+                
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.style.opacity = '0';
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 300);
+                }, 3000);
+                
+                return;
+            }
+            
             // Verificar se os termos foram aceitos
             if (!document.getElementById('termosCheck').checked) {
-                alert('Você precisa aceitar os termos para continuar');
+                // Notificação elegante
+                const notification = document.createElement('div');
+                notification.className = 'error-tooltip tooltip-visible';
+                notification.style.position = 'fixed';
+                notification.style.top = '20px';
+                notification.style.left = '50%';
+                notification.style.transform = 'translateX(-50%)';
+                notification.style.zIndex = '1000';
+                notification.style.padding = '10px 20px';
+                notification.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
+                notification.textContent = 'Você precisa aceitar os termos para continuar';
+                
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.style.opacity = '0';
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 300);
+                }, 3000);
+                
                 return;
             }
             
@@ -1334,19 +1531,24 @@
             })
             .then(response => {
                 if (response.ok) {
-                    // Mostrar mensagem de sucesso
+                    // Mostrar mensagem de sucesso com animação elegante
                     const formElement = document.getElementById('formularioEstetica');
                     const formBody = document.querySelector('.form-body');
                     
+                    // Criar container para a animação de sucesso
                     const successMessage = document.createElement('div');
                     successMessage.className = 'success-message';
+                    successMessage.style.opacity = '0';
+                    successMessage.style.transform = 'translateY(20px)';
+                    successMessage.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    
                     successMessage.innerHTML = `
                         <h3>Avaliação Enviada com Sucesso!</h3>
                         <p>Obrigada por completar seu cadastro. Entraremos em contato em breve para agendar sua avaliação presencial.</p>
                         <div style="margin: 30px 0;">
                             <svg width="100" height="100" viewBox="0 0 100 100">
-                                <circle cx="50" cy="50" r="45" fill="none" stroke="#E8E8E8" stroke-width="5" />
-                                <path d="M25,55 L45,70 L75,35" fill="none" stroke="#4CAF50" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="50" cy="50" r="45" fill="none" stroke="#F7D7D7" stroke-width="5" />
+                                <path d="M25,55 L45,70 L75,35" fill="none" stroke="#EEC4C4" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
                                     <animate attributeName="stroke-dasharray" from="0,100" to="110,0" dur="1s" fill="freeze" />
                                 </path>
                             </svg>
@@ -1357,6 +1559,12 @@
                     formBody.innerHTML = '';
                     formBody.appendChild(successMessage);
                     
+                    // Animar a mensagem de sucesso
+                    setTimeout(() => {
+                        successMessage.style.opacity = '1';
+                        successMessage.style.transform = 'translateY(0)';
+                    }, 100);
+                    
                     // Atualizar barra de progresso para 100%
                     document.getElementById('progressBar').style.width = '100%';
                     
@@ -1366,13 +1574,53 @@
                     }, 3000);
                 } else {
                     // Mostrar mensagem de erro
-                    alert('Ocorreu um erro ao enviar o formulário. Por favor, tente novamente ou entre em contato por WhatsApp.');
+                    const notification = document.createElement('div');
+                    notification.className = 'error-tooltip tooltip-visible';
+                    notification.style.position = 'fixed';
+                    notification.style.top = '20px';
+                    notification.style.left = '50%';
+                    notification.style.transform = 'translateX(-50%)';
+                    notification.style.zIndex = '1000';
+                    notification.style.padding = '10px 20px';
+                    notification.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
+                    notification.textContent = 'Ocorreu um erro ao enviar o formulário. Por favor, tente novamente ou entre em contato por WhatsApp.';
+                    
+                    document.body.appendChild(notification);
+                    
+                    setTimeout(() => {
+                        notification.style.opacity = '0';
+                        setTimeout(() => {
+                            notification.remove();
+                        }, 300);
+                    }, 3000);
+                    
                     document.getElementById('submitBtn').classList.remove('loading');
                 }
             })
             .catch(error => {
                 console.error('Erro:', error);
-                alert('Ocorreu um erro ao enviar o formulário. Por favor, tente novamente.');
+                
+                // Notificação elegante
+                const notification = document.createElement('div');
+                notification.className = 'error-tooltip tooltip-visible';
+                notification.style.position = 'fixed';
+                notification.style.top = '20px';
+                notification.style.left = '50%';
+                notification.style.transform = 'translateX(-50%)';
+                notification.style.zIndex = '1000';
+                notification.style.padding = '10px 20px';
+                notification.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
+                notification.textContent = 'Ocorreu um erro ao enviar o formulário. Por favor, tente novamente.';
+                
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.style.opacity = '0';
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 300);
+                }, 3000);
+                
                 document.getElementById('submitBtn').classList.remove('loading');
             });
         });
