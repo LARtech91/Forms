@@ -250,7 +250,7 @@
             min-width: 250px;
         }
 
-        /* Float Label Input Styles */
+        /* Float Label Input Styles - CORRIGIDO */
         .float-label {
             position: relative;
         }
@@ -259,7 +259,7 @@
         .float-label textarea,
         .float-label select {
             width: 100%;
-            padding: 20px 16px 12px;
+            padding: 24px 16px 12px; /* Aumentei o padding superior para dar espaço ao label */
             border: 2px solid var(--secondary-color);
             border-radius: var(--border-radius);
             font-size: 17px;
@@ -293,9 +293,13 @@
             transition: all 0.25s ease;
             pointer-events: none;
             font-size: 17px;
-            color: var(--text-dark);
+            color: var(--text-light);
             font-family: 'Poppins', sans-serif;
             font-weight: 500;
+            background-color: transparent; /* Removido background para transição suave */
+            padding: 0;
+            z-index: 1; /* Garantir que o label fique acima do input */
+            transform-origin: left top; /* Ponto de origem para a transformação */
         }
 
         .float-label input:focus ~ label,
@@ -308,6 +312,52 @@
             font-size: 13px;
             color: var(--primary-dark);
             font-weight: 600;
+            transform: translateY(0); /* Ajuste suave para mover o label para cima */
+            background-color: transparent;
+        }
+
+        /* Adicionando um pequeno highlight para o label ativo */
+        .float-label input:focus ~ label,
+        .float-label textarea:focus ~ label,
+        .float-label select:focus ~ label {
+            color: var(--primary-dark);
+            text-shadow: 0 0 0.5px var(--primary-dark);
+        }
+
+        /* Ajuste para garantir que os selects também tenham comportamento correto */
+        .float-label select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 16px;
+            padding-right: 45px;
+        }
+
+        /* Ajuste para dispositivos móveis */
+        @media (max-width: 768px) {
+            .float-label input,
+            .float-label textarea,
+            .float-label select {
+                font-size: 16px; /* Prevenir zoom em iOS */
+                padding: 22px 14px 10px; /* Ajustar padding para telas menores */
+            }
+            
+            .float-label label {
+                font-size: 16px;
+            }
+            
+            .float-label input:focus ~ label,
+            .float-label input:not(:placeholder-shown) ~ label,
+            .float-label textarea:focus ~ label,
+            .float-label textarea:not(:placeholder-shown) ~ label,
+            .float-label select:focus ~ label,
+            .float-label select:not(:placeholder-shown) ~ label {
+                top: 6px;
+                font-size: 12px;
+            }
         }
 
         .readonly-field {
@@ -887,7 +937,8 @@
                             <div class="form-row">
                                 <div class="form-col">
                                     <div class="form-group float-label">
-                                        <label for="dataNascimento" class="required-field">Data de Nascimento</label>
+                                        <label for="dataNascimento" class="required-field">Data
+                                          <label for="dataNascimento" class="required-field">Data de Nascimento</label>
                                         <input type="date" id="dataNascimento" name="dataNascimento" required placeholder=" ">
                                         <div class="helper-text">Selecione a data em que você nasceu</div>
                                     </div>
@@ -1508,7 +1559,8 @@
             const outrosProcedimentosGroup = document.getElementById('outrosProcedimentosGroup');
             
             if (this.checked) {
-                outrosProcedimentosGroup.style.display = 'block';
+                outrosProcedimentosGroup.style.display =
+                  outrosProcedimentosGroup.style.display = 'block';
                 document.getElementById('outrosProcedimentos').setAttribute('required', '');
             } else {
                 outrosProcedimentosGroup.style.display = 'none';
