@@ -250,7 +250,7 @@
             min-width: 250px;
         }
 
-        /* Float Label Input Styles - CORRIGIDO */
+        /* Melhorado: Float Label Input Styles - CORRIGIDO */
         .float-label {
             position: relative;
         }
@@ -281,14 +281,14 @@
         }
 
         .float-label input::placeholder,
-        .float-label textarea::placeholder,
-        .float-label select::placeholder {
-            color: transparent;
+        .float-label textarea::placeholder {
+            color: var(--text-light);
+            opacity: 0.5;
         }
 
         .float-label label {
             position: absolute;
-            top: 20px;
+            top: 24px;
             left: 16px;
             transition: all 0.25s ease;
             pointer-events: none;
@@ -296,35 +296,27 @@
             color: var(--text-light);
             font-family: 'Poppins', sans-serif;
             font-weight: 500;
-            background-color: transparent; /* Removido background para transição suave */
+            background-color: transparent;
             padding: 0;
-            z-index: 1; /* Garantir que o label fique acima do input */
-            transform-origin: left top; /* Ponto de origem para a transformação */
+            z-index: 1;
+            transform-origin: left top;
         }
 
+        /* CORREÇÃO: melhoria significativa para evitar sobreposição */
         .float-label input:focus ~ label,
         .float-label input:not(:placeholder-shown) ~ label,
         .float-label textarea:focus ~ label,
         .float-label textarea:not(:placeholder-shown) ~ label,
         .float-label select:focus ~ label,
-        .float-label select:not(:placeholder-shown) ~ label {
+        .float-label select:focus:required:invalid ~ label {
             top: 8px;
             font-size: 13px;
             color: var(--primary-dark);
             font-weight: 600;
-            transform: translateY(0); /* Ajuste suave para mover o label para cima */
-            background-color: transparent;
+            transform: translateY(0);
         }
 
-        /* Adicionando um pequeno highlight para o label ativo */
-        .float-label input:focus ~ label,
-        .float-label textarea:focus ~ label,
-        .float-label select:focus ~ label {
-            color: var(--primary-dark);
-            text-shadow: 0 0 0.5px var(--primary-dark);
-        }
-
-        /* Ajuste para garantir que os selects também tenham comportamento correto */
+        /* CORREÇÃO: estilo para selects */
         .float-label select {
             -webkit-appearance: none;
             -moz-appearance: none;
@@ -334,6 +326,14 @@
             background-position: right 16px center;
             background-size: 16px;
             padding-right: 45px;
+        }
+
+        /* CORREÇÃO: Garantir que o label se mova para cima quando um select tem um valor selecionado */
+        .float-label select:not([value=""]):not(:focus) ~ label {
+            top: 8px;
+            font-size: 13px;
+            color: var(--primary-dark);
+            font-weight: 600;
         }
 
         /* Ajuste para dispositivos móveis */
@@ -347,6 +347,7 @@
             
             .float-label label {
                 font-size: 16px;
+                top: 22px;
             }
             
             .float-label input:focus ~ label,
@@ -354,7 +355,7 @@
             .float-label textarea:focus ~ label,
             .float-label textarea:not(:placeholder-shown) ~ label,
             .float-label select:focus ~ label,
-            .float-label select:not(:placeholder-shown) ~ label {
+            .float-label select:not([value=""]) ~ label {
                 top: 6px;
                 font-size: 12px;
             }
@@ -885,27 +886,23 @@
                         </div>
                         <div class="step" data-step="2">
                             <div class="step-circle">2</div>
-                            <div class="step-name">Contato</div>
+                            <div class="step-name">Endereço</div>
                         </div>
                         <div class="step" data-step="3">
                             <div class="step-circle">3</div>
-                            <div class="step-name">Documentos</div>
+                            <div class="step-name">Procedimentos</div>
                         </div>
                         <div class="step" data-step="4">
                             <div class="step-circle">4</div>
-                            <div class="step-name">Procedimentos</div>
+                            <div class="step-name">Saúde</div>
                         </div>
                         <div class="step" data-step="5">
                             <div class="step-circle">5</div>
-                            <div class="step-name">Saúde</div>
-                        </div>
-                        <div class="step" data-step="6">
-                            <div class="step-circle">6</div>
                             <div class="step-name">Confirmação</div>
                         </div>
                     </div>
                     <div class="progress-bar">
-                        <div class="progress-fill" id="progressBar" style="width: 16.67%;"></div>
+                        <div class="progress-fill" id="progressBar" style="width: 20%;"></div>
                     </div>
                 </div>
             </div>
@@ -921,14 +918,14 @@
                             <div class="form-row">
                                 <div class="form-col">
                                     <div class="form-group float-label">
+                                        <input type="text" id="nome" name="nome" required placeholder="Digite seu nome completo">
                                         <label for="nome" class="required-field">Nome Completo</label>
-                                        <input type="text" id="nome" name="nome" required placeholder=" ">
                                     </div>
                                 </div>
                                 <div class="form-col">
                                     <div class="form-group float-label">
+                                        <input type="tel" id="telefone" name="telefone" required placeholder="(00) 00000-0000" pattern="\([0-9]{2}\) [0-9]{5}-[0-9]{4}">
                                         <label for="telefone" class="required-field">Número de Contato</label>
-                                        <input type="tel" id="telefone" name="telefone" required placeholder=" " pattern="\([0-9]{2}\) [0-9]{5}-[0-9]{4}">
                                         <div class="helper-text">Formato: (99) 99999-9999</div>
                                     </div>
                                 </div>
@@ -937,22 +934,15 @@
                             <div class="form-row">
                                 <div class="form-col">
                                     <div class="form-group float-label">
-                                        <label for="dataNascimento" class="required-field">Data
-                                          <label for="dataNascimento" class="required-field">Data de Nascimento</label>
                                         <input type="date" id="dataNascimento" name="dataNascimento" required placeholder=" ">
-                                        <div class="helper-text">Selecione a data em que você nasceu</div>
+                                        <label for="dataNascimento" class="required-field">Data de Nascimento</label>
                                     </div>
                                 </div>
                                 <div class="form-col">
                                     <div class="form-group float-label">
-                                        <label for="genero">Gênero</label>
-                                        <select id="genero" name="genero" required placeholder=" ">
-                                            <option value=""></option>
-                                            <option value="Feminino">Feminino</option>
-                                            <option value="Masculino">Masculino</option>
-                                            <option value="Não Binário">Não Binário</option>
-                                            <option value="Prefiro não dizer">Prefiro não dizer</option>
-                                        </select>
+                                        <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" required>
+                                        <label for="cpf" class="required-field">CPF</label>
+                                        <div class="helper-text">Digite apenas números, a formatação será automática</div>
                                     </div>
                                 </div>
                             </div>
@@ -963,35 +953,29 @@
                         </div>
                     </div>
                     
-                    <!-- Seção 2: Informações de Contato -->
+                    <!-- Seção 2: Endereço -->
                     <div class="form-section" data-section="2">
                         <div class="section-header">
-                            <h2 class="section-title">Informações de Contato</h2>
+                            <h2 class="section-title">Endereço</h2>
                         </div>
                         <div class="section-content">
                             <div class="form-group float-label">
-                                <label for="email" class="required-field">E-mail</label>
-                                <input type="email" id="email" name="email" required placeholder=" ">
-                                <div class="helper-text">Utilizaremos para enviar informações sobre seu tratamento</div>
-                            </div>
-                            
-                            <div class="form-group float-label">
+                                <input type="text" id="endereco" name="endereco" placeholder="Digite seu endereço completo" required>
                                 <label for="endereco" class="required-field">Endereço Completo</label>
-                                <input type="text" id="endereco" name="endereco" placeholder=" " required>
-                                <div class="helper-text">Rua, número, bairro, cidade, CEP</div>
+                                <div class="helper-text">Rua, número, bairro, complemento, CEP</div>
                             </div>
                             
                             <div class="form-row">
                                 <div class="form-col">
                                     <div class="form-group float-label">
+                                        <input type="text" id="cidade" name="cidade" required placeholder="Digite sua cidade">
                                         <label for="cidade" class="required-field">Cidade</label>
-                                        <input type="text" id="cidade" name="cidade" required placeholder=" ">
                                     </div>
                                 </div>
                                 <div class="form-col">
                                     <div class="form-group float-label">
+                                        <input type="text" id="estado" name="estado" required placeholder="Digite seu estado">
                                         <label for="estado" class="required-field">Estado</label>
-                                        <input type="text" id="estado" name="estado" required placeholder=" ">
                                     </div>
                                 </div>
                             </div>
@@ -1003,37 +987,8 @@
                         </div>
                     </div>
                     
-                    <!-- Seção 3: Documentação -->
+                    <!-- Seção 3: Procedimentos de Interesse -->
                     <div class="form-section" data-section="3">
-                        <div class="section-header">
-                            <h2 class="section-title">Documentação</h2>
-                        </div>
-                        <div class="section-content">
-                            <div class="form-row">
-                                <div class="form-col">
-                                    <div class="form-group float-label">
-                                        <label for="cpf" class="required-field">CPF</label>
-                                        <input type="text" id="cpf" name="cpf" placeholder=" " required>
-                                        <div class="helper-text">Digite apenas números, a formatação será automática</div>
-                                    </div>
-                                </div>
-                                <div class="form-col">
-                                    <div class="form-group float-label">
-                                        <label for="rg">RG</label>
-                                        <input type="text" id="rg" name="rg" placeholder=" ">
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-outline prev-btn" data-prev="2">Voltar</button>
-                                <button type="button" class="btn next-btn" data-next="4">Continuar</button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Seção 4: Procedimentos de Interesse -->
-                    <div class="form-section" data-section="4">
                         <div class="section-header">
                             <h2 class="section-title">Procedimentos de Interesse</h2>
                         </div>
@@ -1081,8 +1036,8 @@
                             </div>
 
                             <div class="form-group float-label" id="outrosProcedimentosGroup" style="display: none;">
+                                <textarea id="outrosProcedimentos" name="outrosProcedimentos" placeholder="Digite quais outros procedimentos você deseja"></textarea>
                                 <label for="outrosProcedimentos">Especifique os outros procedimentos</label>
-                                <textarea id="outrosProcedimentos" name="outrosProcedimentos" placeholder=" "></textarea>
                             </div>
                             
                             <div class="form-group">
@@ -1097,14 +1052,14 @@
                             </div>
                             
                             <div class="btn-group">
-                                <button type="button" class="btn btn-outline prev-btn" data-prev="3">Voltar</button>
-                                <button type="button" class="btn next-btn" data-next="5">Continuar</button>
+                                <button type="button" class="btn btn-outline prev-btn" data-prev="2">Voltar</button>
+                                <button type="button" class="btn next-btn" data-next="4">Continuar</button>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Seção 5: Informações de Saúde -->
-                    <div class="form-section" data-section="5">
+                    <!-- Seção 4: Informações de Saúde -->
+                    <div class="form-section" data-section="4">
                         <div class="section-header">
                             <h2 class="section-title">Informações de Saúde</h2>
                         </div>
@@ -1124,8 +1079,8 @@
                             </div>
 
                             <div class="form-group float-label" id="qualDoencaGroup" style="display: none;">
+                                <input type="text" id="qualDoenca" name="qualDoenca" placeholder="Digite qual doença você possui">
                                 <label for="qualDoenca">Se sim, qual?</label>
-                                <input type="text" id="qualDoenca" name="qualDoenca" placeholder=" ">
                             </div>
                             
                             <div class="form-group">
@@ -1143,8 +1098,8 @@
                             </div>
                             
                             <div class="form-group float-label" id="qualMedicacaoGroup" style="display: none;">
+                                <input type="text" id="qualMedicacao" name="qualMedicacao" placeholder="Digite quais medicações você utiliza">
                                 <label for="qualMedicacao">Se sim, qual?</label>
-                                <input type="text" id="qualMedicacao" name="qualMedicacao" placeholder=" ">
                             </div>
                             
                             <div class="form-group">
@@ -1162,8 +1117,8 @@
                             </div>
                             
                             <div class="form-group float-label" id="qualAtividadeGroup" style="display: none;">
+                                <input type="text" id="qualAtividade" name="qualAtividade" placeholder="Digite quais atividades e com que frequência">
                                 <label for="qualAtividade">Se sim, qual e quantas vezes por semana?</label>
-                                <input type="text" id="qualAtividade" name="qualAtividade" placeholder=" ">
                             </div>
                             
                             <div class="form-group">
@@ -1181,13 +1136,13 @@
                             </div>
                             
                             <div class="form-group float-label" id="qualTratamentoGroup" style="display: none;">
+                                <input type="text" id="qualTratamento" name="qualTratamento" placeholder="Digite quais tratamentos já realizou">
                                 <label for="qualTratamento">Se sim, qual?</label>
-                                <input type="text" id="qualTratamento" name="qualTratamento" placeholder=" ">
                             </div>
                             
                             <div class="form-group float-label">
+                                <textarea id="objetivoMelhoria" name="objetivoMelhoria" placeholder="Descreva com detalhes o que você gostaria de melhorar" required></textarea>
                                 <label for="objetivoMelhoria">Me conta com as suas palavras o que deseja melhorar?</label>
-                                <textarea id="objetivoMelhoria" name="objetivoMelhoria" placeholder=" " required></textarea>
                             </div>
                             
                             <div class="form-group">
@@ -1223,19 +1178,19 @@
                             </div>
                             
                             <div class="form-group float-label" id="qualInfoGroup" style="display: none;">
+                                <textarea id="qualInfo" name="qualInfo" placeholder="Digite informações adicionais sobre sua saúde"></textarea>
                                 <label for="qualInfo">Se sim, qual?</label>
-                                <textarea id="qualInfo" name="qualInfo" placeholder=" "></textarea>
                             </div>
                             
                             <div class="btn-group">
-                                <button type="button" class="btn btn-outline prev-btn" data-prev="4">Voltar</button>
-                                <button type="button" class="btn next-btn" data-next="6">Continuar</button>
+                                <button type="button" class="btn btn-outline prev-btn" data-prev="3">Voltar</button>
+                                <button type="button" class="btn next-btn" data-next="5">Continuar</button>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Seção 6: Confirmação -->
-                    <div class="form-section" data-section="6">
+                    <!-- Seção 5: Confirmação -->
+                    <div class="form-section" data-section="5">
                         <div class="section-header">
                             <h2 class="section-title">Confirmar Informações</h2>
                         </div>
@@ -1261,7 +1216,7 @@
                             </div>
                             
                             <div class="btn-group">
-                                <button type="button" class="btn btn-outline prev-btn" data-prev="5">Voltar</button>
+                                <button type="button" class="btn btn-outline prev-btn" data-prev="4">Voltar</button>
                                 <button type="submit" class="btn btn-block" id="submitBtn">
                                     Enviar Avaliação
                                     <span class="spinner"></span>
@@ -1278,645 +1233,332 @@
             </div>
         </div>
     </div>
-
+    
     <script>
-        // Variável para armazenar os arquivos enviados
-        let uploadedFiles = [];
-        
-        // Formatações de campos e máscaras
-        document.getElementById('cpf').addEventListener('input', function (e) {
-            let value = e.target.value.replace(/\D/g, '');
-            if (value.length > 11) value = value.slice(0, 11);
+        document.addEventListener('DOMContentLoaded', function() {
+            // Referências aos elementos do formulário
+            const form = document.getElementById('formularioEstetica');
+            const sections = document.querySelectorAll('.form-section');
+            const progressBar = document.getElementById('progressBar');
+            const steps = document.querySelectorAll('.step');
+            const nextButtons = document.querySelectorAll('.next-btn');
+            const prevButtons = document.querySelectorAll('.prev-btn');
+            const submitBtn = document.getElementById('submitBtn');
             
-            if (value.length > 9) {
-                value = value.replace(/^(\d{3})(\d{3})(\d{3})(\d{1,2})$/, "$1.$2.$3-$4");
-            } else if (value.length > 6) {
-                value = value.replace(/^(\d{3})(\d{3})(\d{1,3})$/, "$1.$2.$3");
-            } else if (value.length > 3) {
-                value = value.replace(/^(\d{3})(\d{1,3})$/, "$1.$2");
-            }
+            // Campos de condição
+            const outroCheck = document.getElementById('outroCheck');
+            const outrosProcedimentosGroup = document.getElementById('outrosProcedimentosGroup');
             
-            e.target.value = value;
-        });
-        
-        document.getElementById('rg').addEventListener('input', function (e) {
-            let value = e.target.value.replace(/\D/g, '');
-            if (value.length > 9) value = value.slice(0, 9);
+            const doencaSim = document.getElementById('doencaSim');
+            const doencaNao = document.getElementById('doencaNao');
+            const qualDoencaGroup = document.getElementById('qualDoencaGroup');
             
-            if (value.length > 8) {
-                value = value.replace(/^(\d{2})(\d{3})(\d{3})(\d{1})$/, "$1.$2.$3-$4");
-            } else if (value.length > 5) {
-                value = value.replace(/^(\d{2})(\d{3})(\d{1,3})$/, "$1.$2.$3");
-            } else if (value.length > 2) {
-                value = value.replace(/^(\d{2})(\d{1,3})$/, "$1.$2");
-            }
+            const medicacaoSim = document.getElementById('medicacaoSim');
+            const medicacaoNao = document.getElementById('medicacaoNao');
+            const qualMedicacaoGroup = document.getElementById('qualMedicacaoGroup');
             
-            e.target.value = value;
-        });
-        
-        // Máscara para telefone brasileiro
-        document.getElementById('telefone').addEventListener('input', function (e) {
-            let value = e.target.value.replace(/\D/g, '');
-            if (value.length > 11) value = value.slice(0, 11);
+            const atividadeSim = document.getElementById('atividadeSim');
+            const atividadeNao = document.getElementById('atividadeNao');
+            const qualAtividadeGroup = document.getElementById('qualAtividadeGroup');
             
-            if (value.length > 6) {
-                value = value.replace(/^(\d{2})(\d{1})(\d{4})(\d{0,4})$/, "($1) $2$3-$4");
-            } else if (value.length > 2) {
-                value = value.replace(/^(\d{2})(\d{0,5})$/, "($1) $2");
-            }
+            const tratamentoSim = document.getElementById('tratamentoSim');
+            const tratamentoNao = document.getElementById('tratamentoNao');
+            const qualTratamentoGroup = document.getElementById('qualTratamentoGroup');
             
-            e.target.value = value;
-        });
-        
-        // Função de validação de email
-        function validateEmail(email) {
-            const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            return re.test(String(email).toLowerCase());
-        }
-
-        // Navegação entre abas
-        const nextButtons = document.querySelectorAll('.next-btn');
-        const prevButtons = document.querySelectorAll('.prev-btn');
-        
-        nextButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const currentSection = parseInt(this.getAttribute('data-next')) - 1;
-                const nextSection = parseInt(this.getAttribute('data-next'));
+            const infoSim = document.getElementById('infoSim');
+            const infoNao = document.getElementById('infoNao');
+            const qualInfoGroup = document.getElementById('qualInfoGroup');
+            
+            // Função para mostrar uma seção específica
+            function showSection(sectionNumber) {
+                sections.forEach(section => {
+                    section.classList.remove('active');
+                });
                 
-                // Validar campos da seção atual
-                const currentSectionElement = document.querySelector(`.form-section[data-section="${currentSection}"]`);
-                const requiredFields = currentSectionElement.querySelectorAll('[required]');
+                document.querySelector(`.form-section[data-section="${sectionNumber}"]`).classList.add('active');
+                
+                // Atualizar a barra de progresso
+                const progressPercentage = ((sectionNumber - 1) / (sections.length - 1)) * 100;
+                progressBar.style.width = `${progressPercentage}%`;
+                
+                // Atualizar os passos
+                steps.forEach(step => {
+                    const stepNum = parseInt(step.getAttribute('data-step'));
+                    step.classList.remove('active', 'completed');
+                    
+                    if (stepNum === sectionNumber) {
+                        step.classList.add('active');
+                    } else if (stepNum < sectionNumber) {
+                        step.classList.add('completed');
+                    }
+                });
+                
+                // Scroll para o topo do formulário
+                window.scrollTo({
+                    top: form.offsetTop - 50,
+                    behavior: 'smooth'
+                });
+            }
+            
+            // Event listeners para os botões de próximo
+            nextButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const nextSection = parseInt(this.getAttribute('data-next'));
+                    
+                    // Validar seção atual antes de prosseguir
+                    if (validateSection(nextSection - 1)) {
+                        showSection(nextSection);
+                    }
+                });
+            });
+            
+            // Event listeners para os botões de voltar
+            prevButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const prevSection = parseInt(this.getAttribute('data-prev'));
+                    showSection(prevSection);
+                });
+            });
+            
+            // Validação de seção
+            function validateSection(sectionNumber) {
+                const currentSection = document.querySelector(`.form-section[data-section="${sectionNumber}"]`);
+                const requiredFields = currentSection.querySelectorAll('[required]');
                 let isValid = true;
                 
-                // Remover todos os tooltips de erro anteriores
-                document.querySelectorAll('.error-tooltip').forEach(tooltip => {
-                    tooltip.remove();
-                });
+                // Remover mensagens de erro anteriores
+                const errorTooltips = currentSection.querySelectorAll('.error-tooltip');
+                errorTooltips.forEach(tooltip => tooltip.remove());
                 
-                // Remover classes de erro anteriores
-                document.querySelectorAll('.error-field').forEach(field => {
-                    field.classList.remove('error-field');
-                });
+                // Remover classe de erro dos campos
+                const errorFields = currentSection.querySelectorAll('.error-field');
+                errorFields.forEach(field => field.classList.remove('error-field'));
                 
+                // Verificar campos obrigatórios
                 requiredFields.forEach(field => {
-                    if (field.value.trim() === '') {
+                    if (!field.value.trim()) {
+                        isValid = false;
                         field.classList.add('error-field');
                         
-                        // Criar tooltip de erro elegante
+                        // Criar tooltip de erro
                         const errorTooltip = document.createElement('div');
                         errorTooltip.className = 'error-tooltip tooltip-visible';
                         errorTooltip.textContent = 'Este campo é obrigatório';
                         
-                        // Posicionar o tooltip
-                        const fieldContainer = field.closest('.form-group');
-                        fieldContainer.style.position = 'relative';
-                        fieldContainer.appendChild(errorTooltip);
+                        // Inserir após o campo
+                        field.parentNode.appendChild(errorTooltip);
                         
-                        isValid = false;
-                    } else {
-                        // Validação específica para o campo de e-mail
-                        if (field.type === 'email' && !validateEmail(field.value)) {
-                            field.classList.add('error-field');
-                            
-                            const errorTooltip = document.createElement('div');
-                            errorTooltip.className = 'error-tooltip tooltip-visible';
-                            errorTooltip.textContent = 'Por favor, insira um e-mail válido';
-                            
-                            const fieldContainer = field.closest('.form-group');
-                            fieldContainer.style.position = 'relative';
-                            fieldContainer.appendChild(errorTooltip);
-                            
-                            isValid = false;
-                        } else {
-                            field.classList.add('validated-input');
+                        // Focar no primeiro campo com erro
+                        if (isValid === false) {
+                            field.focus();
                         }
                     }
                 });
                 
-                if (!isValid) {
-                    // Focar e rolar até o primeiro campo com erro
-                    const firstInvalidField = currentSectionElement.querySelector('.error-field');
-                    if (firstInvalidField) {
-                        firstInvalidField.focus();
-                        firstInvalidField.scrollIntoView({ 
-                            behavior: 'smooth', 
-                            block: 'center' 
-                        });
-                    }
-                    return;
-                }
-                
-                // Avançar para a próxima seção
-                document.querySelector(`.form-section[data-section="${currentSection}"]`).classList.remove('active');
-                document.querySelector(`.form-section[data-section="${nextSection}"]`).classList.add('active');
-                
-                // Atualizar passos
-                document.querySelectorAll('.step').forEach(step => {
-                    const stepNum = parseInt(step.getAttribute('data-step'));
-                    if (stepNum < nextSection) {
-                        step.classList.add('completed');
-                        step.classList.remove('active');
-                    } else if (stepNum === nextSection) {
-                        step.classList.add('active');
-                    } else {
-                        step.classList.remove('active', 'completed');
-                    }
+                return isValid;
+            }
+            
+            // Toggle para o campo "Outros procedimentos"
+            if (outroCheck) {
+                outroCheck.addEventListener('change', function() {
+                    outrosProcedimentosGroup.style.display = this.checked ? 'block' : 'none';
+                });
+            }
+            
+            // Toggle para o campo "Doenças"
+            if (doencaSim && doencaNao) {
+                doencaSim.addEventListener('change', function() {
+                    qualDoencaGroup.style.display = this.checked ? 'block' : 'none';
                 });
                 
-                // Atualizar barra de progresso
-                const progressPercentage = (nextSection / 6) * 100;
-                document.getElementById('progressBar').style.width = progressPercentage + '%';
-                
-                // Rolar para o topo
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
-        });
-        
-        prevButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const currentSection = parseInt(this.getAttribute('data-prev')) + 1;
-                const prevSection = parseInt(this.getAttribute('data-prev'));
-                
-                document.querySelector(`.form-section[data-section="${currentSection}"]`).classList.remove('active');
-                document.querySelector(`.form-section[data-section="${prevSection}"]`).classList.add('active');
-                
-                // Atualizar passos
-                document.querySelectorAll('.step').forEach(step => {
-                    const stepNum = parseInt(step.getAttribute('data-step'));
-                    if (stepNum < prevSection) {
-                        step.classList.add('completed');
-                        step.classList.remove('active');
-                    } else if (stepNum === prevSection) {
-                        step.classList.add('active');
-                    } else {
-                        step.classList.remove('active', 'completed');
-                    }
-                });
-                
-                // Atualizar barra de progresso
-                const progressPercentage = (prevSection / 6) * 100;
-                document.getElementById('progressBar').style.width = progressPercentage + '%';
-                
-                // Rolar para o topo
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
-        });
-        
-        // Toggle para mostrar/ocultar campos condicionais da área de saúde
-        // Doença conhecida
-        document.querySelectorAll('input[name="doencaConhecida"]').forEach(radio => {
-            radio.addEventListener('change', function() {
-                const qualDoencaGroup = document.getElementById('qualDoencaGroup');
-                const doencaSimSelected = document.getElementById('doencaSim').checked;
-                
-                if (doencaSimSelected) {
-                    qualDoencaGroup.style.display = 'block';
-                    document.getElementById('qualDoenca').setAttribute('required', '');
-                } else {
+                doencaNao.addEventListener('change', function() {
                     qualDoencaGroup.style.display = 'none';
-                    document.getElementById('qualDoenca').removeAttribute('required');
-                    document.getElementById('qualDoenca').value = '';
-                }
-            });
-        });
-        
-        // Medicação
-        document.querySelectorAll('input[name="usaMedicacao"]').forEach(radio => {
-            radio.addEventListener('change', function() {
-                const qualMedicacaoGroup = document.getElementById('qualMedicacaoGroup');
-                const medicacaoSimSelected = document.getElementById('medicacaoSim').checked;
-                
-                if (medicacaoSimSelected) {
-                    qualMedicacaoGroup.style.display = 'block';
-                    document.getElementById('qualMedicacao').setAttribute('required', '');
-                } else {
-                    qualMedicacaoGroup.style.display = 'none';
-                    document.getElementById('qualMedicacao').removeAttribute('required');
-                    document.getElementById('qualMedicacao').value = '';
-                }
-            });
-        });
-        
-        // Atividade física
-        document.querySelectorAll('input[name="praticaAtividade"]').forEach(radio => {
-            radio.addEventListener('change', function() {
-                const qualAtividadeGroup = document.getElementById('qualAtividadeGroup');
-                const atividadeSimSelected = document.getElementById('atividadeSim').checked;
-                
-                if (atividadeSimSelected) {
-                    qualAtividadeGroup.style.display = 'block';
-                    document.getElementById('qualAtividade').setAttribute('required', '');
-                } else {
-                    qualAtividadeGroup.style.display = 'none';
-                    document.getElementById('qualAtividade').removeAttribute('required');
-                    document.getElementById('qualAtividade').value = '';
-                }
-            });
-        });
-        
-        // Tratamento anterior
-        document.querySelectorAll('input[name="tratamentoAnterior"]').forEach(radio => {
-            radio.addEventListener('change', function() {
-                const qualTratamentoGroup = document.getElementById('qualTratamentoGroup');
-                const tratamentoSimSelected = document.getElementById('tratamentoSim').checked;
-                
-                if (tratamentoSimSelected) {
-                    qualTratamentoGroup.style.display = 'block';
-                    document.getElementById('qualTratamento').setAttribute('required', '');
-                } else {
-                    qualTratamentoGroup.style.display = 'none';
-                    document.getElementById('qualTratamento').removeAttribute('required');
-                    document.getElementById('qualTratamento').value = '';
-                }
-            });
-        });
-        
-        // Informação adicional
-        document.querySelectorAll('input[name="infoAdicional"]').forEach(radio => {
-            radio.addEventListener('change', function() {
-                const qualInfoGroup = document.getElementById('qualInfoGroup');
-                const infoSimSelected = document.getElementById('infoSim').checked;
-                
-                if (infoSimSelected) {
-                    qualInfoGroup.style.display = 'block';
-                    document.getElementById('qualInfo').setAttribute('required', '');
-                } else {
-                    qualInfoGroup.style.display = 'none';
-                    document.getElementById('qualInfo').removeAttribute('required');
-                    document.getElementById('qualInfo').value = '';
-                }
-            });
-        });
-        
-        // Toggle para mostrar/ocultar campo de outros procedimentos
-        document.getElementById('outroCheck').addEventListener('change', function() {
-            const outrosProcedimentosGroup = document.getElementById('outrosProcedimentosGroup');
-            
-            if (this.checked) {
-                outrosProcedimentosGroup.style.display =
-                  outrosProcedimentosGroup.style.display = 'block';
-                document.getElementById('outrosProcedimentos').setAttribute('required', '');
-            } else {
-                outrosProcedimentosGroup.style.display = 'none';
-                document.getElementById('outrosProcedimentos').removeAttribute('required');
-                document.getElementById('outrosProcedimentos').value = '';
-            }
-        });
-        
-        // Upload de arquivos
-        const fileUploadInput = document.querySelector('.file-upload-input');
-        const filePreview = document.querySelector('.file-preview');
-        
-        fileUploadInput.addEventListener('change', function(e) {
-            const files = Array.from(e.target.files);
-            
-            // Limitar a 3 arquivos
-            if (uploadedFiles.length + files.length > 3) {
-                alert('Você pode enviar no máximo 3 imagens');
-                return;
+                });
             }
             
-            files.forEach(file => {
-                if (!file.type.match('image.*')) {
-                    alert('Por favor, envie apenas imagens (JPG, PNG)');
-                    return;
-                }
-                
-                const reader = new FileReader();
-                
-                reader.onload = function(e) {
-                    const imgPreview = document.createElement('div');
-                    imgPreview.className = 'file-preview-item';
-                    
-                    const img = document.createElement('img');
-                    img.className = 'file-preview-img';
-                    img.src = e.target.result;
-                    
-                    const removeBtn = document.createElement('div');
-                    removeBtn.className = 'file-preview-remove';
-                    removeBtn.innerHTML = '×';
-                    removeBtn.addEventListener('click', function() {
-                        const index = uploadedFiles.indexOf(file);
-                        if (index > -1) {
-                            uploadedFiles.splice(index, 1);
-                        }
-                        imgPreview.remove();
-                    });
-                    
-                    imgPreview.appendChild(img);
-                    imgPreview.appendChild(removeBtn);
-                    filePreview.appendChild(imgPreview);
-                    
-                    uploadedFiles.push(file);
-                };
-                
-                reader.readAsDataURL(file);
-            });
-        });
-        
-        // Inicializar imagem do logo otimizada para retina
-        window.addEventListener('DOMContentLoaded', (event) => {
-            // Verificar se a tela é retina display
-            const isRetina = window.devicePixelRatio > 1;
-            
-            if (isRetina) {
-                const logoImg = document.querySelector('.logo');
-                // Supondo que existe uma versão 2x do logo disponível
-                const retinaUrl = logoImg.src.replace('.png', '@2x.png');
-                
-                // Pré-carregar a imagem para verificar se existe
-                const preloadImg = new Image();
-                preloadImg.onload = function() {
-                    logoImg.src = retinaUrl;
-                };
-                preloadImg.src = retinaUrl;
-            }
-            
-            // Inicializar validação em tempo real para campos obrigatórios
-            document.querySelectorAll('input[required], select[required], textarea[required]').forEach(field => {
-                field.addEventListener('blur', function() {
-                    validateField(this);
+            // Toggle para o campo "Medicações"
+            if (medicacaoSim && medicacaoNao) {
+                medicacaoSim.addEventListener('change', function() {
+                    qualMedicacaoGroup.style.display = this.checked ? 'block' : 'none';
                 });
                 
-                field.addEventListener('input', function() {
-                    // Remover mensagens de erro quando o usuário começa a digitar
-                    if (this.classList.contains('error-field')) {
-                        this.classList.remove('error-field');
-                        const errorTooltip = this.closest('.form-group').querySelector('.error-tooltip');
-                        if (errorTooltip) {
-                            errorTooltip.remove();
+                medicacaoNao.addEventListener('change', function() {
+                    qualMedicacaoGroup.style.display = 'none';
+                });
+            }
+            
+            // Toggle para o campo "Atividades físicas"
+            if (atividadeSim && atividadeNao) {
+                atividadeSim.addEventListener('change', function() {
+                    qualAtividadeGroup.style.display = this.checked ? 'block' : 'none';
+                });
+                
+                atividadeNao.addEventListener('change', function() {
+                    qualAtividadeGroup.style.display = 'none';
+                });
+            }
+            
+            // Toggle para o campo "Tratamentos anteriores"
+            if (tratamentoSim && tratamentoNao) {
+                tratamentoSim.addEventListener('change', function() {
+                    qualTratamentoGroup.style.display = this.checked ? 'block' : 'none';
+                });
+                
+                tratamentoNao.addEventListener('change', function() {
+                    qualTratamentoGroup.style.display = 'none';
+                });
+            }
+            
+            // Toggle para o campo "Informações adicionais"
+            if (infoSim && infoNao) {
+                infoSim.addEventListener('change', function() {
+                    qualInfoGroup.style.display = this.checked ? 'block' : 'none';
+                });
+                
+                infoNao.addEventListener('change', function() {
+                    qualInfoGroup.style.display = 'none';
+                });
+            }
+            
+            // Máscara para o campo de telefone
+            const telefoneInput = document.getElementById('telefone');
+            if (telefoneInput) {
+                telefoneInput.addEventListener('input', function(e) {
+                    let value = e.target.value.replace(/\D/g, '');
+                    if (value.length > 0) {
+                        value = '(' + value;
+                        if (value.length > 3) {
+                            value = value.substring(0, 3) + ') ' + value.substring(3);
+                        }
+                        if (value.length > 10) {
+                            value = value.substring(0, 10) + '-' + value.substring(10);
+                        }
+                        if (value.length > 15) {
+                            value = value.substring(0, 15);
                         }
                     }
+                    e.target.value = value;
                 });
-            });
-        });
-        
-        // Função para validar um campo
-        function validateField(field) {
-            // Remover mensagens de erro existentes
-            const existingTooltip = field.closest('.form-group').querySelector('.error-tooltip');
-            if (existingTooltip) {
-                existingTooltip.remove();
             }
             
-            // Validar o campo
-            if (field.value.trim() === '') {
-                field.classList.add('error-field');
-                
-                // Criar tooltip de erro
-                const errorTooltip = document.createElement('div');
-                errorTooltip.className = 'error-tooltip tooltip-visible';
-                errorTooltip.textContent = 'Este campo é obrigatório';
-                
-                // Posicionar o tooltip
-                const fieldContainer = field.closest('.form-group');
-                fieldContainer.style.position = 'relative';
-                fieldContainer.appendChild(errorTooltip);
-                
-                return false;
-            } else if (field.type === 'email' && !validateEmail(field.value)) {
-                field.classList.add('error-field');
-                
-                // Criar tooltip de erro para email
-                const errorTooltip = document.createElement('div');
-                errorTooltip.className = 'error-tooltip tooltip-visible';
-                errorTooltip.textContent = 'Por favor, insira um e-mail válido';
-                
-                // Posicionar o tooltip
-                const fieldContainer = field.closest('.form-group');
-                fieldContainer.style.position = 'relative';
-                fieldContainer.appendChild(errorTooltip);
-                
-                return false;
-            } else {
-                field.classList.remove('error-field');
-                field.classList.add('validated-input');
-                return true;
-            }
-        }
-        
-        // Validação e envio do formulário
-        document.getElementById('formularioEstetica').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Verificar se há campos obrigatórios não preenchidos em todas as seções
-            const requiredFields = document.querySelectorAll('[required]');
-            let hasErrors = false;
-            
-            requiredFields.forEach(field => {
-                if (!validateField(field)) {
-                    hasErrors = true;
-                    
-                    // Identificar qual seção contém o campo com erro
-                    const section = field.closest('.form-section');
-                    const sectionNumber = section.getAttribute('data-section');
-                    
-                    // Tornar a seção ativa
-                    document.querySelectorAll('.form-section').forEach(s => {
-                        s.classList.remove('active');
-                    });
-                    section.classList.add('active');
-                    
-                    // Atualizar passos
-                    document.querySelectorAll('.step').forEach(step => {
-                        const stepNum = parseInt(step.getAttribute('data-step'));
-                        if (stepNum < sectionNumber) {
-                            step.classList.add('completed');
-                            step.classList.remove('active');
-                        } else if (stepNum == sectionNumber) {
-                            step.classList.add('active');
-                        } else {
-                            step.classList.remove('active', 'completed');
+            // Máscara para o campo de CPF
+            const cpfInput = document.getElementById('cpf');
+            if (cpfInput) {
+                cpfInput.addEventListener('input', function(e) {
+                    let value = e.target.value.replace(/\D/g, '');
+                    if (value.length > 0) {
+                        if (value.length > 3) {
+                            value = value.substring(0, 3) + '.' + value.substring(3);
                         }
-                    });
-                    
-                    // Atualizar barra de progresso
-                    const progressPercentage = (sectionNumber / 6) * 100;
-                    document.getElementById('progressBar').style.width = progressPercentage + '%';
-                    
-                    // Focar no primeiro campo com erro
-                    setTimeout(() => {
-                        field.focus();
-                        field.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }, 100);
-                }
-            });
-            
-            if (hasErrors) {
-                // Notificação elegante ao invés de alert
-                const notification = document.createElement('div');
-                notification.className = 'error-tooltip tooltip-visible';
-                notification.style.position = 'fixed';
-                notification.style.top = '20px';
-                notification.style.left = '50%';
-                notification.style.transform = 'translateX(-50%)';
-                notification.style.zIndex = '1000';
-                notification.style.padding = '12px 24px';
-                notification.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
-                notification.style.fontSize = '16px';
-                notification.style.fontWeight = '500';
-                notification.textContent = 'Por favor, preencha todos os campos obrigatórios';
-                
-                document.body.appendChild(notification);
-                
-                setTimeout(() => {
-                    notification.style.opacity = '0';
-                    setTimeout(() => {
-                        notification.remove();
-                    }, 300);
-                }, 3000);
-                
-                return;
+                        if (value.length > 7) {
+                            value = value.substring(0, 7) + '.' + value.substring(7);
+                        }
+                        if (value.length > 11) {
+                            value = value.substring(0, 11) + '-' + value.substring(11);
+                        }
+                        if (value.length > 14) {
+                            value = value.substring(0, 14);
+                        }
+                    }
+                    e.target.value = value;
+                });
             }
             
-            // Verificar se os termos foram aceitos
-            if (!document.getElementById('termosCheck').checked) {
-                // Notificação elegante
-                const notification = document.createElement('div');
-                notification.className = 'error-tooltip tooltip-visible';
-                notification.style.position = 'fixed';
-                notification.style.top = '20px';
-                notification.style.left = '50%';
-                notification.style.transform = 'translateX(-50%)';
-                notification.style.zIndex = '1000';
-                notification.style.padding = '12px 24px';
-                notification.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
-                notification.style.fontSize = '16px';
-                notification.style.fontWeight = '500';
-                notification.textContent = 'Você precisa aceitar os termos para continuar';
-                
-                document.body.appendChild(notification);
-                
-                setTimeout(() => {
-                    notification.style.opacity = '0';
-                    setTimeout(() => {
-                        notification.remove();
-                    }, 300);
-                }, 3000);
-                
-                return;
+            // Upload de arquivos
+            const fileUploadInput = document.querySelector('.file-upload-input');
+            const filePreview = document.querySelector('.file-preview');
+            
+            if (fileUploadInput && filePreview) {
+                fileUploadInput.addEventListener('change', function(e) {
+                    const files = e.target.files;
+                    
+                    // Limitar a 3 arquivos
+                    if (files.length > 3) {
+                        alert('Por favor, selecione no máximo 3 imagens.');
+                        return;
+                    }
+                    
+                    // Limpar preview anterior
+                    filePreview.innerHTML = '';
+                    
+                    // Criar previews para cada arquivo
+                    for (let i = 0; i < files.length; i++) {
+                        const file = files[i];
+                        
+                        // Verificar se é uma imagem
+                        if (!file.type.startsWith('image/')) {
+                            alert('Por favor, selecione apenas arquivos de imagem.');
+                            continue;
+                        }
+                        
+                        const reader = new FileReader();
+                        reader.onload = function(event) {
+                            const previewItem = document.createElement('div');
+                            previewItem.className = 'file-preview-item';
+                            
+                            const img = document.createElement('img');
+                            img.className = 'file-preview-img';
+                            img.src = event.target.result;
+                            
+                            const removeBtn = document.createElement('div');
+                            removeBtn.className = 'file-preview-remove';
+                            removeBtn.textContent = '×';
+                            removeBtn.addEventListener('click', function() {
+                                previewItem.remove();
+                                // Note: Isso não remove o arquivo do input, apenas do preview
+                            });
+                            
+                            previewItem.appendChild(img);
+                            previewItem.appendChild(removeBtn);
+                            filePreview.appendChild(previewItem);
+                        };
+                        
+                        reader.readAsDataURL(file);
+                    }
+                });
             }
             
-            // Mostrar spinner de carregamento
-            document.getElementById('submitBtn').classList.add('loading');
-            
-            // Criar FormData para envio
-            const formData = new FormData(this);
-            
-            // Adicionar arquivos de imagem
-            uploadedFiles.forEach((file, index) => {
-                formData.append(`imagem_${index}`, file);
-            });
-            
-            // Enviar formulário via AJAX
-            fetch('https://n8n.lartechautomation.com/webhook/pre-atendimento', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => {
-                if (response.ok) {
-                    // Mostrar mensagem de sucesso com animação elegante
-                    const formElement = document.getElementById('formularioEstetica');
-                    const formBody = document.querySelector('.form-body');
+            // Enviar formulário
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
                     
-                    // Criar container para a animação de sucesso
-                    const successMessage = document.createElement('div');
-                    successMessage.className = 'success-message';
-                    successMessage.style.opacity = '0';
-                    successMessage.style.transform = 'translateY(20px)';
-                    successMessage.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    // Validar a última seção
+                    if (!validateSection(5)) {
+                        return;
+                    }
                     
-                    successMessage.innerHTML = `
-                        <h3>Avaliação Enviada com Sucesso!</h3>
-                        <p>Obrigada por completar seu cadastro. Entraremos em contato em breve para agendar sua avaliação presencial.</p>
-                        <div style="margin: 30px 0;">
-                            <svg width="100" height="100" viewBox="0 0 100 100">
-                                <circle cx="50" cy="50" r="45" fill="none" stroke="#F7D7D7" stroke-width="5" />
-                                <path d="M25,55 L45,70 L75,35" fill="none" stroke="#EEC4C4" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
-                                    <animate attributeName="stroke-dasharray" from="0,100" to="110,0" dur="1s" fill="freeze" />
-                                </path>
-                            </svg>
-                        </div>
-                        <p>Você será redirecionada em alguns segundos...</p>
-                    `;
+                    // Mostrar spinner de carregamento
+                    submitBtn.classList.add('loading');
                     
-                    formBody.innerHTML = '';
-                    formBody.appendChild(successMessage);
-                    
-                    // Animar a mensagem de sucesso
-                    setTimeout(() => {
-                        successMessage.style.opacity = '1';
-                        successMessage.style.transform = 'translateY(0)';
-                    }, 100);
-                    
-                    // Atualizar barra de progresso para 100%
-                    document.getElementById('progressBar').style.width = '100%';
-                    
-                    // Redirecionar após alguns segundos
+                    // Simulação de envio
                     setTimeout(function() {
-                        window.location.href = "https://linkbio.co/ThaisEsteticaCorporal";
-                    }, 3000);
-                } else {
-                    // Mostrar mensagem de erro
-                    const notification = document.createElement('div');
-                    notification.className = 'error-tooltip tooltip-visible';
-                    notification.style.position = 'fixed';
-                    notification.style.top = '20px';
-                    notification.style.left = '50%';
-                    notification.style.transform = 'translateX(-50%)';
-                    notification.style.zIndex = '1000';
-                    notification.style.padding = '12px 24px';
-                    notification.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
-                    notification.style.fontSize = '16px';
-                    notification.style.fontWeight = '500';
-                    notification.textContent = 'Ocorreu um erro ao enviar o formulário. Por favor, tente novamente ou entre em contato por WhatsApp.';
-                    
-                    document.body.appendChild(notification);
-                    
-                    setTimeout(() => {
-                        notification.style.opacity = '0';
-                        setTimeout(() => {
-                            notification.remove();
-                        }, 300);
-                    }, 3000);
-                    
-                    document.getElementById('submitBtn').classList.remove('loading');
-                }
-            })
-            .catch(error => {
-                console.error('Erro:', error);
-                
-                // Notificação elegante
-                const notification = document.createElement('div');
-                notification.className = 'error-tooltip tooltip-visible';
-                notification.style.position = 'fixed';
-                notification.style.top = '20px';
-                notification.style.left = '50%';
-                notification.style.transform = 'translateX(-50%)';
-                notification.style.zIndex = '1000';
-                notification.style.padding = '12px 24px';
-                notification.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
-                notification.style.fontSize = '16px';
-                notification.style.fontWeight = '500';
-                notification.textContent = 'Ocorreu um erro ao enviar o formulário. Por favor, tente novamente.';
-                
-                document.body.appendChild(notification);
-                
-                setTimeout(() => {
-                    notification.style.opacity = '0';
-                    setTimeout(() => {
-                        notification.remove();
-                    }, 300);
-                }, 3000);
-                
-                document.getElementById('submitBtn').classList.remove('loading');
-            });
+                        // Aqui você pode adicionar o código para enviar o formulário via AJAX
+                        
+                        // Criar mensagem de sucesso
+                        const successMessage = document.createElement('div');
+                        successMessage.className = 'success-message';
+                        successMessage.innerHTML = `
+                            <h3>Cadastro realizado com sucesso!</h3>
+                            <p>Suas informações foram recebidas. Em breve entraremos em contato para agendar sua avaliação.</p>
+                            <p>Obrigado por escolher a Thais Ribeiro Estética Corporal Avançada!</p>
+                        `;
+                        
+                        // Substituir o conteúdo do formulário pela mensagem de sucesso
+                        form.innerHTML = '';
+                        form.appendChild(successMessage);
+                        
+                        // Scroll para o topo do formulário
+                        window.scrollTo({
+                            top: form.offsetTop - 50,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Remover spinner de carregamento
+                        submitBtn.classList.remove('loading');
+                    }, 2000);
+                });
+            }
         });
     </script>
 </body>
