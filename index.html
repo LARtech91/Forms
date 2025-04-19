@@ -67,7 +67,7 @@
         }
 
         .logo {
-            width: 250px;
+            width: 320px; /* Aumentado de 250px para 320px */
             margin: 24px auto;
             position: relative;
             transition: var(--transition);
@@ -79,8 +79,8 @@
             top: -15px;
             left: 50%;
             transform: translateX(-50%);
-            width: 280px;
-            height: 280px;
+            width: 350px; /* Aumentado de 280px para 350px */
+            height: 350px; /* Aumentado de 280px para 350px */
             border-radius: 50%;
             background: radial-gradient(circle, rgba(245, 235, 221, 0.5) 0%, rgba(255, 255, 255, 0) 70%);
             z-index: -1;
@@ -88,13 +88,13 @@
 
         @media (max-width: 768px) {
             .logo {
-                width: 180px;
+                width: 230px; /* Aumentado de 180px para 230px */
                 margin: 16px auto;
             }
             
             .logo-decoration {
-                width: 210px;
-                height: 210px;
+                width: 280px; /* Ajustado proporcionalmente */
+                height: 280px; /* Ajustado proporcionalmente */
             }
         }
 
@@ -103,7 +103,7 @@
             color: var(--text-dark);
             margin-bottom: 15px;
             font-weight: 600;
-            font-size: 2.5rem;
+            font-size: 2rem; /* Diminuído de 2.5rem para 2rem */
             letter-spacing: 1px;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
         }
@@ -308,7 +308,7 @@
         .float-label textarea:focus ~ label,
         .float-label textarea:not(:placeholder-shown) ~ label,
         .float-label select:focus ~ label,
-        .float-label select:focus:required:invalid ~ label {
+        .float-label select:not([value=""]):not(:focus) ~ label {
             top: 8px;
             font-size: 13px;
             color: var(--primary-dark);
@@ -326,14 +326,6 @@
             background-position: right 16px center;
             background-size: 16px;
             padding-right: 45px;
-        }
-
-        /* CORREÇÃO: Garantir que o label se mova para cima quando um select tem um valor selecionado */
-        .float-label select:not([value=""]):not(:focus) ~ label {
-            top: 8px;
-            font-size: 13px;
-            color: var(--primary-dark);
-            font-weight: 600;
         }
 
         /* Ajuste para dispositivos móveis */
@@ -358,6 +350,10 @@
             .float-label select:not([value=""]) ~ label {
                 top: 6px;
                 font-size: 12px;
+            }
+            
+            .header h1 {
+                font-size: 1.6rem; /* Diminuído de 2rem para 1.6rem */
             }
         }
 
@@ -794,10 +790,6 @@
                 padding: 25px;
             }
             
-            .header h1 {
-                font-size: 2rem;
-            }
-            
             .header p {
                 max-width: 100%;
                 font-size: 1rem;
@@ -915,32 +907,32 @@
                             <h2 class="section-title">Dados Pessoais</h2>
                         </div>
                         <div class="section-content">
+                            <!-- IMPORTANTE: Parte corrigida - Campos de Nome e Telefone primeiro -->
                             <div class="form-row">
                                 <div class="form-col">
                                     <div class="form-group float-label">
-                                        <input type="text" id="nome" name="nome" required placeholder="Digite seu nome completo">
+                                      <input type="text" id="nome" name="nome" required placeholder=" ">
                                         <label for="nome" class="required-field">Nome Completo</label>
                                     </div>
                                 </div>
                                 <div class="form-col">
                                     <div class="form-group float-label">
-                                        <input type="tel" id="telefone" name="telefone" required placeholder="(00) 00000-0000" pattern="\([0-9]{2}\) [0-9]{5}-[0-9]{4}">
+                                        <input type="tel" id="telefone" name="telefone" required placeholder=" " pattern="\([0-9]{2}\) [0-9]{5}-[0-9]{4}">
                                         <label for="telefone" class="required-field">Número de Contato</label>
                                         <div class="helper-text">Formato: (99) 99999-9999</div>
                                     </div>
                                 </div>
                             </div>
-                            
+                          
                             <div class="form-row">
                                 <div class="form-col">
-                                    <div class="form-group float-label">
                                         <input type="date" id="dataNascimento" name="dataNascimento" required placeholder=" ">
                                         <label for="dataNascimento" class="required-field">Data de Nascimento</label>
                                     </div>
                                 </div>
                                 <div class="form-col">
                                     <div class="form-group float-label">
-                                        <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" required>
+                                        <input type="text" id="cpf" name="cpf" placeholder=" " required>
                                         <label for="cpf" class="required-field">CPF</label>
                                         <div class="helper-text">Digite apenas números, a formatação será automática</div>
                                     </div>
@@ -960,7 +952,7 @@
                         </div>
                         <div class="section-content">
                             <div class="form-group float-label">
-                                <input type="text" id="endereco" name="endereco" placeholder="Digite seu endereço completo" required>
+                                <input type="text" id="endereco" name="endereco" placeholder=" " required>
                                 <label for="endereco" class="required-field">Endereço Completo</label>
                                 <div class="helper-text">Rua, número, bairro, complemento, CEP</div>
                             </div>
@@ -968,13 +960,13 @@
                             <div class="form-row">
                                 <div class="form-col">
                                     <div class="form-group float-label">
-                                        <input type="text" id="cidade" name="cidade" required placeholder="Digite sua cidade">
+                                        <input type="text" id="cidade" name="cidade" required placeholder=" ">
                                         <label for="cidade" class="required-field">Cidade</label>
                                     </div>
                                 </div>
                                 <div class="form-col">
                                     <div class="form-group float-label">
-                                        <input type="text" id="estado" name="estado" required placeholder="Digite seu estado">
+                                        <input type="text" id="estado" name="estado" required placeholder=" ">
                                         <label for="estado" class="required-field">Estado</label>
                                     </div>
                                 </div>
@@ -1036,7 +1028,7 @@
                             </div>
 
                             <div class="form-group float-label" id="outrosProcedimentosGroup" style="display: none;">
-                                <textarea id="outrosProcedimentos" name="outrosProcedimentos" placeholder="Digite quais outros procedimentos você deseja"></textarea>
+                                <textarea id="outrosProcedimentos" name="outrosProcedimentos" placeholder=" "></textarea>
                                 <label for="outrosProcedimentos">Especifique os outros procedimentos</label>
                             </div>
                             
@@ -1079,7 +1071,7 @@
                             </div>
 
                             <div class="form-group float-label" id="qualDoencaGroup" style="display: none;">
-                                <input type="text" id="qualDoenca" name="qualDoenca" placeholder="Digite qual doença você possui">
+                                <input type="text" id="qualDoenca" name="qualDoenca" placeholder=" ">
                                 <label for="qualDoenca">Se sim, qual?</label>
                             </div>
                             
@@ -1098,7 +1090,7 @@
                             </div>
                             
                             <div class="form-group float-label" id="qualMedicacaoGroup" style="display: none;">
-                                <input type="text" id="qualMedicacao" name="qualMedicacao" placeholder="Digite quais medicações você utiliza">
+                                <input type="text" id="qualMedicacao" name="qualMedicacao" placeholder=" ">
                                 <label for="qualMedicacao">Se sim, qual?</label>
                             </div>
                             
@@ -1117,7 +1109,7 @@
                             </div>
                             
                             <div class="form-group float-label" id="qualAtividadeGroup" style="display: none;">
-                                <input type="text" id="qualAtividade" name="qualAtividade" placeholder="Digite quais atividades e com que frequência">
+                                <input type="text" id="qualAtividade" name="qualAtividade" placeholder=" ">
                                 <label for="qualAtividade">Se sim, qual e quantas vezes por semana?</label>
                             </div>
                             
@@ -1136,12 +1128,12 @@
                             </div>
                             
                             <div class="form-group float-label" id="qualTratamentoGroup" style="display: none;">
-                                <input type="text" id="qualTratamento" name="qualTratamento" placeholder="Digite quais tratamentos já realizou">
+                                <input type="text" id="qualTratamento" name="qualTratamento" placeholder=" ">
                                 <label for="qualTratamento">Se sim, qual?</label>
                             </div>
                             
                             <div class="form-group float-label">
-                                <textarea id="objetivoMelhoria" name="objetivoMelhoria" placeholder="Descreva com detalhes o que você gostaria de melhorar" required></textarea>
+                                <textarea id="objetivoMelhoria" name="objetivoMelhoria" placeholder=" " required></textarea>
                                 <label for="objetivoMelhoria">Me conta com as suas palavras o que deseja melhorar?</label>
                             </div>
                             
@@ -1178,7 +1170,7 @@
                             </div>
                             
                             <div class="form-group float-label" id="qualInfoGroup" style="display: none;">
-                                <textarea id="qualInfo" name="qualInfo" placeholder="Digite informações adicionais sobre sua saúde"></textarea>
+                                <textarea id="qualInfo" name="qualInfo" placeholder=" "></textarea>
                                 <label for="qualInfo">Se sim, qual?</label>
                             </div>
                             
