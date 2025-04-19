@@ -1512,47 +1512,43 @@
             }
             
             // Enviar formulário
+            // dentro do seu script, localize o listener de submit e substitua por este:
             if (form) {
-                form.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    
-                    // Validar a última seção
-                    if (!validateSection(5)) {
-                        return;
-                    }
-                    
-                    // Mostrar spinner de carregamento
-                    submitBtn.classList.add('loading');
-                    
-                    // Simulação de envio
-                    setTimeout(function() {
-                        // Aqui você pode adicionar o código para enviar o formulário via AJAX
-                        
-                        // Criar mensagem de sucesso
-                        const successMessage = document.createElement('div');
-                        successMessage.className = 'success-message';
-                        successMessage.innerHTML = `
-                            <h3>Cadastro realizado com sucesso!</h3>
-                            <p>Suas informações foram recebidas. Em breve entraremos em contato para agendar sua avaliação.</p>
-                            <p>Obrigado por escolher a Thais Ribeiro Estética Corporal Avançada!</p>
-                        `;
-                        
-                        // Substituir o conteúdo do formulário pela mensagem de sucesso
-                        form.innerHTML = '';
-                        form.appendChild(successMessage);
-                        
-                        // Scroll para o topo do formulário
-                        window.scrollTo({
-                            top: form.offsetTop - 50,
-                            behavior: 'smooth'
-                        });
-                        
-                        // Remover spinner de carregamento
-                        submitBtn.classList.remove('loading');
-                    }, 2000);
-                });
+              form.addEventListener('submit', function(e) {
+                e.preventDefault();
+            
+                // validação da última seção
+                if (!validateSection(5)) return;
+            
+                // mostra spinner
+                submitBtn.classList.add('loading');
+            
+                // simula envio / aguarda 2s
+                setTimeout(function() {
+                  // cria e exibe mensagem de sucesso
+                  const successMessage = document.createElement('div');
+                  successMessage.className = 'success-message';
+                  successMessage.innerHTML = `
+                    <h3>Cadastro realizado com sucesso!</h3>
+                    <p>Suas informações foram recebidas. Em breve entraremos em contato para agendar sua avaliação.</p>
+                    <p>Obrigado por escolher a Thais Ribeiro Estética Corporal Avançada!</p>
+                  `;
+            
+                  // limpa o formulário e insere a mensagem
+                  form.innerHTML = '';
+                  form.appendChild(successMessage);
+            
+                  // remove spinner
+                  submitBtn.classList.remove('loading');
+            
+                  // após 2s, redireciona para o link desejado
+                  setTimeout(function() {
+                    window.location.href = 'https://linkbio.co/ThaisEsteticaCorporal';
+                  }, 2000);
+            
+                }, 2000);
+              });
             }
-        });
     </script>
 </body>
 </html>
