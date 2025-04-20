@@ -1514,43 +1514,43 @@
             // Enviar formulário
             if (form) {
                 form.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    
-                    // Validar a última seção
-                    if (!validateSection(5)) {
-                        return;
-                    }
-                    
-                    // Mostrar spinner de carregamento
-                    submitBtn.classList.add('loading');
-                    
-                    // Simulação de envio
-                    setTimeout(function() {
-                        // Aqui você pode adicionar o código para enviar o formulário via AJAX
-                        
-                        // Criar mensagem de sucesso
-                        const successMessage = document.createElement('div');
-                        successMessage.className = 'success-message';
-                        successMessage.innerHTML = `
-                            <h3>Cadastro realizado com sucesso!</h3>
-                            <p>Suas informações foram recebidas. Em breve entraremos em contato para agendar sua avaliação.</p>
-                            <p>Obrigado por escolher a Thais Ribeiro Estética Corporal Avançada!</p>
-                        `;
-                        
-                        // Substituir o conteúdo do formulário pela mensagem de sucesso
-                        form.innerHTML = '';
-                        form.appendChild(successMessage);
-                        
-                        // Scroll para o topo do formulário
-                        window.scrollTo({
-                            top: form.offsetTop - 50,
-                            behavior: 'smooth'
-                        });
-                        
-                        // Remover spinner de carregamento
-                        submitBtn.classList.remove('loading');
-                    }, 2000);
-                });
+                  e.preventDefault();
+                  
+                  // valida a etapa final
+                  if (!validateSection(5)) return;
+                  
+                  submitBtn.classList.add('loading');
+                
+                  // envia de fato para o webhook
+                  fetch(form.action, {
+                    method: form.method,
+                    body: new FormData(form)
+                  })
+                  .then(response => {
+                    if (!response.ok) throw new Error('Erro no envio');
+                    return response.text(); // ou .json(), dependendo da resposta do seu webhook
+                  })
+                  .then(() => {
+                    // constrói mensagem de sucesso
+                    const successMessage = document.createElement('div');
+                    successMessage.className = 'success-message';
+                    successMessage.innerHTML = `
+                      <h3>Cadastro realizado com sucesso!</h3>
+                      <p>Suas informações foram recebidas. Em breve entraremos em contato para agendar sua avaliação.</p>
+                      <p>Obrigado por escolher a Thais Ribeiro Estética Corporal Avançada!</p>
+                    `;
+                    form.innerHTML = '';
+                    form.appendChild(successMessage);
+                    window.scrollTo({ top: form.offsetTop - 50, behavior: 'smooth' });
+                  })
+                  .catch(err => {
+                    alert('Houve um problema ao enviar o formulário. Tente novamente.');
+                    console.error(err);
+                  })
+                  .finally(() => {
+                    submitBtn.classList.remove('loading');
+                  });
+               });
             }
         });
     </script>
